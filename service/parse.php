@@ -422,7 +422,7 @@ function parse($verbatim_code, $extend = 10)
 					{
 						$code = 'AM';
 						$catalog = $result->catalogNumber;
-						$catalog = preg_replace('/^([A-Z])\s*(\d+)$/', '$1.$2', $catalog);
+						$catalog = preg_replace('/^([A-Z])\s*(\d+(-\d+)?)$/', '$1.$2', $catalog);
 						
 						$catalog_numbers = extend_catalog_number($catalog, $extend_by);
 						
