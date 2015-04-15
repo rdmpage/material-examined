@@ -16,6 +16,7 @@ function default_display()
 function display_parse_code ($code, $extend = 0, $callback = '')
 {
 	$obj = parse($code, $extend);
+	$obj->status = 200; // for now	
 	
 	api_output($obj, $callback);
 }
@@ -25,6 +26,7 @@ function display_parse_code ($code, $extend = 0, $callback = '')
 function display_match_code_gbif ($code, $extend = 0, $scientificName = '', $callback = '')
 {
 	$obj = parse($code, $extend);
+	$obj->status = 200; // for now
 	
 	if ($obj->parsed)
 	{

@@ -1,5 +1,7 @@
 <?php
 
+require_once(dirname(__FILE__) . '/lib.php');
+
 //--------------------------------------------------------------------------------------------------
 function api_output($obj, $callback)
 {
@@ -31,7 +33,8 @@ function api_output($obj, $callback)
 	{
 		echo $callback . '(';
 	}
-	echo json_encode($obj, JSON_PRETTY_PRINT);
+	//echo json_encode($obj, JSON_PRETTY_PRINT);
+	echo json_format(json_encode($obj));
 	if ($callback != '')
 	{
 		echo ')';
