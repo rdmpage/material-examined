@@ -1044,6 +1044,27 @@ function parse($verbatim_code, $extend = 10)
 					}
 					break;
 					
+				// MPEG
+				case 'MPEG':
+					{
+						$prefixes = array('ARA', 'HOP', 'ICT', 'OPE');
+						foreach ($prefixes as $prefix)
+						{
+							$parameters = array();
+							$parameters['institutionCode'] = $result->institutionCode;
+							$parameters['catalogNumber'] = $result->institutionCode . '.' . $prefix . ' ' . str_pad($result->catalogNumber, 6,'0', STR_PAD_LEFT);
+							$result->parameters[] = $parameters;
+						}
+					}				
+				
+					// default
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;
+				
+					
 				//------------------------------------------------------------------------
 				case 'NHM':
 					$parameters = array();
