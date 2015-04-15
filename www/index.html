@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset="utf-8" /> 
+  	<title>Material examined</title>
+  	
+    <style type="text/css">
+      body { margin: 20px; font-family:sans-serif;}
+      input[type="text"] {
+    		font-size:14px;
+	  }
+	  button {font-size:14px;}
+    </style>
+    
+    <!-- jquery -->
+    <script src="jquery-1.11.2.min.js"></script>
+    
+    <!-- Google Maps -->
+    <!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>  -->
+    
+    <script>
+    
+    // http://stackoverflow.com/a/16976927
+	function ObjectLength_Modern( object ) {
+		return Object.keys(object).length;
+	}
+
+	function ObjectLength_Legacy( object ) {
+		var length = 0;
+		for( var key in object ) {
+			if( object.hasOwnProperty(key) ) {
+				++length;
+			}
+		}
+		return length;
+	}
+
+	var ObjectLength =
+		Object.keys ? ObjectLength_Modern : ObjectLength_Legacy;    
+    
+      function match() {
+      
+		var code = $('#code').val(); 
+		code = code.replace(/^\s+/, '');
+		code = code.replace(/\s+$/, '');
+		$("#output").html('Searching...');
+		$("#output").html('');
+		     
+    	$('#results').html('');
+    	
+       	$.getJSON('../service/api.php?code=' + code + "&match&extend=10&callback=?",
+			function(data){
+				if (!data.parsed) {
+					$("#output").html('Problem'); 
+				} else {
+					$("#output").html('Done [' + ObjectLength(data.hits) + ']');
+					
+					if (ObjectLength(data.hits) > 0) {
+					   $("#api").html('<a href="../service/api.php?code=' + encodeURIComponent(code) + '&match&extend=10" target="_new">See API call</a>');
+					}
+					
+					var html = '<table>';
+					html += '<tbody>';
+										
+					for (var i in data.hits) {
+					   html += '<tr>';
+					   html += '<td>' + '<a href="http://gbif.org/occurrence/' + data.hits[i].key + '" target="_new">' + data.hits[i].key + '</a>' + '</td>';  
+					   
+					   // higher taxon
+					   var klass = '';
+					   if (data.hits[i].class) {
+					     klass = data.hits[i].class;
+					   }
+					   
+					   html += '<td>' + '<img style="opacity:0.5;" height="48" src="image.php?name=' + klass + '" />' + '</td>';
+				
+					   html += '<td>' + klass + '</td>';
+					   
+					   html += '<td>' + data.hits[i].scientificName + '</td>';
+					   
+					     
+					   var typeStatus = '';
+					   if (data.hits[i].typeStatus) {
+					     typeStatus = data.hits[i].typeStatus;
+					   }
+					   html += '<td>' + typeStatus + '</td>';
+					   
+					   
+					   var map = '';
+					   if (data.hits[i].decimalLatitude) {
+					     var map = '<img src="http://maps.googleapis.com/maps/api/staticmap?zoom=4&size=100x100&maptype=terrain&markers=' + data.hits[i].decimalLatitude + ',' + data.hits[i].decimalLongitude + '&sensor=false" />' + '</td>';
+					
+					   }
+					   html += '<td>' + map + '</td>';
+					   
+					   var media = '';
+					   if (data.hits[i].media) {
+					     if (data.hits[i].media[0].identifier) {
+					        media = '<img src="' + data.hits[i].media[0].identifier + '" height="100" />';
+					     }
+					     if (data.hits[i].media[0].references) {
+					        media = '<img src="' + data.hits[i].media[0].references + '" height="100" />';
+					     }
+					   }
+					   html += '<td>' + media + '</td>';
+					   
+					   var genbank_list = [];
+					   if (data.hits[i].associatedSequences) {
+					   	 genbank = data.hits[i].associatedSequences;
+					   	 genbank = genbank.replace(/Genbank:/, '');
+					   	 genbank = genbank.replace(/http:\/\/www.ncbi.nlm.nih.gov\/nuccore\//g, '');
+					   	 genbank = genbank.replace(/\s*;\s*/g, '|');
+					   	 genbank_list = genbank.split('|');
+					   }
+					   html += '<td>' + genbank_list.join('; ') + '</td>';
+					   
+					   
+					   var dynamic = '';
+					   if (data.hits[i].dynamicProperties) {
+					       // may or may not be JSON
+					       var text = data.hits[i].dynamicProperties;
+					       
+					      // http://stackoverflow.com/a/3710506 
+					      if (/^[\],:{}\s]*$/.test(text.replace(/\\["\\\/bfnrtu]/g, '@').
+							replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+							replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+							// JSON
+							/*
+							var dynamicProperties = JSON.parse(text);
+					      	if (dynamicProperties.kindofobject) {
+					        	dynamic = dynamicProperties.kindofobject;
+					      	}
+					      	*/
+					      	dynamic = data.hits[i].dynamicProperties;
+							
+						  } else {
+						    // a string
+						    dynamic = data.hits[i].dynamicProperties;
+						  }
+					   }
+					   
+					   html += '<td>' + dynamic + '</td>';
+					   
+					   html += '</tr>';
+					}
+					html += '</tbody>';
+					html += '</table>';
+					$("#results").html(html);
+					
+				}
+			});  
+       }
+	</script>    
+
+  </head>
+  <body>
+    <h1>Material examined</h1>
+    	<p>Search GBIF for a specimen code. Source code on <a href="https://github.com/rdmpage/material-examined">GitHub</a>.</p>
+		<div style="width:100%;padding-bottom:20px;">
+			<p>Enter specimen code</p>
+			<input type="text" id="code" value="" placeholder="MNHN 1999-402">
+			<button onclick="match();">Find</button>
+			<div id="output" style="color:rgb(128,128,128);height:30px;">Status</div>
+			<div id="api" height:30px;"></div>
+		</div>
+		
+		<div id="results"></div>
+  
+  </body>
+</html>
