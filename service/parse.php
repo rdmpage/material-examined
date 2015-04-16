@@ -194,6 +194,9 @@ $patterns = array(
 	// ROM MAM 107505
 	'/^(?<institutionCode>ROM)\s+(?<collectionCode>[A-Z]+)\s+(?<catalogNumber>.*)$/',
 	
+	// SAMA:B23004
+	'/^(?<institutionCode>SAMA)[:](?<catalogNumber>[B]\d+)$/',
+	
 	// TM<ZAF>:84805
 	'/^(?<institutionCode>TM)<(?<collectionCode>ZAF)>[:]?(?<catalogNumber>\d+)$/',
 
