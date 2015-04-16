@@ -181,6 +181,9 @@ $patterns = array(
 	// OMNH-P 21175
 	'/^(?<institutionCode>OMNH)-(?<collectionCode>[P])\s+(?<catalogNumber>\d+)$/',
 	
+	// RMCA A.68708
+	'/^(?<institutionCode>RMCA)\s+(?<collectionCode>A)\.(?<catalogNumber>\d+)$/',
+	
 	// RMNH.INS.13836
 	'/^(?<institutionCode>RMNH)\.(?<collectionCode>.*)\.(?<catalogNumber>\d+)$/',
 	
@@ -1170,6 +1173,21 @@ function parse($verbatim_code, $extend = 10)
 				case 'RBINS':
 					$parameters = array();
 					$parameters['institutionCode'] = 'Royal Belgian Institute of natural Sciences'; // seriously
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;					
+					break;
+
+				//------------------------------------------------------------------------
+				case 'RMCA':	
+					// swap letters in acronym			
+					$parameters = array();
+					$parameters['institutionCode'] = 'MRAC'; // WTF?
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;					
+
+					// default
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
 					$parameters['catalogNumber'] = $result->catalogNumber;
 					$result->parameters[] = $parameters;					
 					break;
