@@ -141,7 +141,7 @@ $patterns = array(
 	'/^(?<institutionCode>NHM)\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
 	
 	// NHMUK:1822.9.1.932
-	'/^(?<institutionCode>NHMUK):(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
+	'/^(?<institutionCode>NHMUK)(:|\s*)(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
 	
 	// NTM S.10623-001
 	'/^(?<institutionCode>NTM)\s+(?<catalogNumber>[A-Z]\.\d+(-\d+)?)$/',
@@ -1231,7 +1231,7 @@ function parse($verbatim_code, $extend = 10)
 						if (is_numeric($result->catalogNumber))
 						{
 							// Institution.prefix.catalogue
-							$prefixes = array('CRUS.A', 'CRUS.D','INS', 'MAM', 'MOL');
+							$prefixes = array('CRUS.A', 'CRUS.D','INS', 'MAM', 'MOL', 'RENA');
 							foreach ($prefixes as $prefix)
 							{
 								$parameters = array();
@@ -1547,6 +1547,7 @@ function parse($verbatim_code, $extend = 10)
 					if (!$matched)
 					{
 						// Deal with USNM catalog codes like USNM 730715.457409
+						$extend_by = max($extend_by, 30);
 						$catalog_numbers = extend_catalog_number($result->catalogNumber, $extend_by);
 					
 						foreach ($catalog_numbers as $catalog_number)
