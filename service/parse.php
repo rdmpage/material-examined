@@ -1183,7 +1183,17 @@ function parse($verbatim_code, $extend = 10)
 					$parameters = array();
 					$parameters['institutionCode'] = 'MRAC'; // WTF?
 					$parameters['catalogNumber'] = $result->catalogNumber;
-					$result->parameters[] = $parameters;					
+					$result->parameters[] = $parameters;
+					
+					// http://www.gbif.org/dataset/7baada30-f762-11e1-a439-00145eb45e9a
+					// create larger catalogue number	
+					if (isset($result->collectionCode))
+					{
+						$parameters = array();
+						$parameters['institutionCode'] = $result->institutionCode;
+						$parameters['catalogNumber'] = $result->institutionCode . ' ' . $result->collectionCode . '.' . $result->catalogNumber;
+						$result->parameters[] = $parameters;
+					}
 
 					// default
 					$parameters = array();
