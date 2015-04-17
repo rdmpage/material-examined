@@ -74,7 +74,7 @@ $patterns = array(
 	'/^(?<institutionCode>BMNH)\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+(-\d+))$/',
 	
 	// BM(NH) 1981.5.26: 11-14 not a range
-	'/^(?<institutionCode>BM\(NH\))\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+:\s*(\d+)+(-\d+))$/',
+	'/^(?<institutionCode>BM\(NH\))\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+:\s*(\d+)+(-\d+)?)$/',
 
 	
 	// CAS:192888
