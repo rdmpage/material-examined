@@ -47,6 +47,8 @@
 		$("#output").html('');
 		     
     	$('#results').html('');
+    	$("#api").html('<a href="../service/api.php?code=' + encodeURIComponent(code) + '&match&extend=10" target="_new">See API call</a>');
+
     	
        	$.getJSON('../service/api.php?code=' + code + "&match&extend=10&callback=?",
 			function(data){
@@ -55,16 +57,30 @@
 				} else {
 					$("#output").html('Done [' + ObjectLength(data.hits) + ']');
 					
-					if (ObjectLength(data.hits) > 0) {
-					   $("#api").html('<a href="../service/api.php?code=' + encodeURIComponent(code) + '&match&extend=10" target="_new">See API call</a>');
-					}
-					
 					var html = '<table>';
 					html += '<tbody>';
 										
 					for (var i in data.hits) {
 					   html += '<tr>';
-					   html += '<td>' + '<a href="http://gbif.org/occurrence/' + data.hits[i].key + '" target="_new">' + data.hits[i].key + '</a>' + '</td>';  
+					   html += '<td>';
+					   
+					   html += '<a href="http://gbif.org/occurrence/' + data.hits[i].key + '" target="_new">' + data.hits[i].key + '</a>';
+					   
+					   var code = '';
+					   
+						if (data.hits[i].institutionCode) {
+					    	code = data.hits[i].institutionCode;
+					    }
+						if (data.hits[i].catalogNumber) {
+					    	code += '&nbsp;' + data.hits[i].catalogNumber.replace(/\s/g, '&nbsp;');
+					    }
+					    html += '<br />' + '<span style="font-size:12px;color:green;">' + code + '</span>';
+					   
+					   if (data.hits[i].occurrenceID) {
+					     html += '<br />' + '<span style="font-size:10px;color:rgb(128,128,128);">' + data.hits[i].occurrenceID + '</span>';
+					   }
+					   
+					   html += '</td>';  
 					   
 					   // higher taxon
 					   var klass = '';
@@ -77,6 +93,17 @@
 					   html += '<td>' + klass + '</td>';
 					   
 					   html += '<td>' + data.hits[i].scientificName + '</td>';
+					   
+					   var issues = '';
+					   if (data.hits[i].issues) {
+					      if (data.hits[i].issues.indexOf('TAXON_MATCH_HIGHERRANK') != -1) {
+					         issues = '!H';
+					      }
+					      if (data.hits[i].issues.indexOf('TAXON_MATCH_FUZZY') != -1) {
+					         issues = '!F';
+					      }
+					   }
+					   html += '<td>' + issues + '</td>';
 					   
 					     
 					   var typeStatus = '';
@@ -139,7 +166,7 @@
 						  }
 					   }
 					   
-					   html += '<td>' + dynamic + '</td>';
+					   html += '<td>' + '<span style="font-size:10px;color:rgb(128,128,128);">' + dynamic + '</span>' + '</td>';
 					   
 					   html += '</tr>';
 					}

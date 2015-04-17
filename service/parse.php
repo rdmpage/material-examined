@@ -60,6 +60,10 @@ $patterns = array(
 	// BIOUG<CAN>:10BBEPT-0185
 	'/^(?<institutionCode>BIOUG)<CAN>:(?<catalogNumber>.*)$/',
 	
+	// BM 1860.3.18.18
+	'/^(?<institutionCode>BM)\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
+	'/^(?<institutionCode>BM\(NH\))\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
+
 	// BMNH 1946.8.21.7
 	'/^(?<institutionCode>BMNH)\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
 	
@@ -202,6 +206,9 @@ $patterns = array(
 
 	// UCMVZ 157675
 	'/^UC(?<institutionCode>MVZ)\s+(?<catalogNumber>\d+)$/',
+	
+	// UF:UF10868
+	'/^UF:(?<institutionCode>UF)(?<catalogNumber>\d+)$/',
 	
 	// USNM ENT 00907308
 	'/^(?<institutionCode>USNM)\s+(?<collectionCode>ENT)\s+[0]*(?<catalogNumber>.*)$/',
@@ -587,6 +594,8 @@ function parse($verbatim_code, $extend = 10)
 					break;				
 					
 				//------------------------------------------------------------------------
+				case 'BM':
+				case 'BM(NH)':
 				case 'BMNH':
 					$parameters = array();
 					$parameters['institutionCode'] = 'NHMUK';
@@ -1501,6 +1510,8 @@ function parse($verbatim_code, $extend = 10)
 				//------------------------------------------------------------------------
 				case 'UF':
 					// Some UF material has FLMNH as instituion code
+					
+					$extend_by = max(30, $extend_by);
 					$catalog_numbers = extend_catalog_number($result->catalogNumber, $extend_by);
 					
 					foreach ($catalog_numbers as $catalog_number)
@@ -1547,15 +1558,21 @@ function parse($verbatim_code, $extend = 10)
 					if (!$matched)
 					{
 						// Deal with USNM catalog codes like USNM 730715.457409
-						$extend_by = max($extend_by, 30);
-						$catalog_numbers = extend_catalog_number($result->catalogNumber, $extend_by);
-					
-						foreach ($catalog_numbers as $catalog_number)
+						
+						$prefixes = array('', 'V');
+						foreach ($prefixes as $prefix)
 						{
-							$parameters = array();
-							$parameters['institutionCode'] = $result->institutionCode;
-							$parameters['catalogNumber'] = $catalog_number;
-							$result->parameters[] = $parameters;
+							$extend_by = max($extend_by, 30);
+							$catalog_number = $prefix . $result->catalogNumber;
+							$catalog_numbers = extend_catalog_number($catalog_number , $extend_by);
+					
+							foreach ($catalog_numbers as $catalog_number)
+							{
+								$parameters = array();
+								$parameters['institutionCode'] = $result->institutionCode;
+								$parameters['catalogNumber'] = $catalog_number;
+								$result->parameters[] = $parameters;
+							}
 						}
 					}
 					break;
@@ -1718,7 +1735,7 @@ function parse($verbatim_code, $extend = 10)
 						$result->parameters[] = $parameters;
 						
 						// try some prefixes as well...
-						$prefixes = array('ICH', 'IZGP', 'MAM', 'HERR');
+						$prefixes = array('ICH', 'IZGP', 'MAM', 'HERR', 'VP');
 						foreach ($prefixes as $prefix)
 						{
 							$parameters = array();		
