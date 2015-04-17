@@ -72,6 +72,9 @@ $patterns = array(
 
 	// BMNH 2005.8.9.105-106 (not a range FFS)
 	'/^(?<institutionCode>BMNH)\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+(-\d+))$/',
+	
+	// BM(NH) 1981.5.26: 11-14 not a range
+	'/^(?<institutionCode>BM\(NH\))\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+:\s*(\d+)+(-\d+))$/',
 
 	
 	// CAS:192888
@@ -599,17 +602,21 @@ function parse($verbatim_code, $extend = 10)
 				case 'BMNH':
 					$parameters = array();
 					$parameters['institutionCode'] = 'NHMUK';
-					$parameters['catalogNumber'] = $result->catalogNumber;
+					
+					$catalogNumber = $result->catalogNumber;
+					$catalogNumber = preg_replace('/:\s+/', '.', $catalogNumber);
+					
+					$parameters['catalogNumber'] = $catalogNumber;
 					$result->parameters[] = $parameters;
 					
 					// Tweaks
 					$prefixes = array();
-					if (preg_match('/^[0-9]{2}\./', $result->catalogNumber))
+					if (preg_match('/^[0-9]{2}\./', $catalogNumber))
 					{
 						$prefixes[] = '19';
 						$prefixes[] = 'ZD 19';
 					}
-					if (preg_match('/^[0-9]{1}\./', $result->catalogNumber))
+					if (preg_match('/^[0-9]{1}\./', $catalogNumber))
 					{
 						$prefixes[] = '190';
 						$prefixes[] = 'ZD 190';
@@ -618,7 +625,7 @@ function parse($verbatim_code, $extend = 10)
 					{
 						$parameters = array();
 						$parameters['institutionCode'] = 'NHMUK';
-						$parameters['catalogNumber'] = $prefix . $result->catalogNumber;
+						$parameters['catalogNumber'] = $prefix . $catalogNumber;
 						$result->parameters[] = $parameters;
 					}
 					break;				
@@ -1710,7 +1717,8 @@ function parse($verbatim_code, $extend = 10)
 							case 'ICH':
 							case 'IZ':
 							case 'MAM':
-							case 'ORN':							
+							case 'ORN':	
+							case 'VP':						
 								$parameters = array();		
 								$parameters['institutionCode'] = $result->institutionCode;							
 								$parameters['catalogNumber'] = $result->institutionCode 
@@ -1735,7 +1743,7 @@ function parse($verbatim_code, $extend = 10)
 						$result->parameters[] = $parameters;
 						
 						// try some prefixes as well...
-						$prefixes = array('ICH', 'IZGP', 'MAM', 'HERR', 'VP');
+						$prefixes = array('ENT', 'R', 'ICH', 'IZ', 'IZGP', 'MAM', 'ORN', 'HERR', 'VP');
 						foreach ($prefixes as $prefix)
 						{
 							$parameters = array();		
