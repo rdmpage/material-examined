@@ -63,6 +63,9 @@ $patterns = array(
 	// BM 1860.3.18.18
 	'/^(?<institutionCode>BM)\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
 	'/^(?<institutionCode>BM\(NH\))\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
+	
+	// BM000566339 NHM plant barcode
+	'/^(?<institutionCode>BM)(?<catalogNumber>0\d+)$/',
 
 	// BMNH 1946.8.21.7
 	'/^(?<institutionCode>BMNH)\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
@@ -621,6 +624,11 @@ function parse($verbatim_code, $extend = 10)
 						$prefixes[] = '190';
 						$prefixes[] = 'ZD 190';
 					}
+					if (preg_match('/^0\d+$/', $catalogNumber))
+					{
+						$prefixes[] = 'BM';
+					}
+
 					foreach ($prefixes as $prefix)
 					{
 						$parameters = array();
@@ -763,7 +771,7 @@ function parse($verbatim_code, $extend = 10)
 						}
 						$matched = true;
 					}
-					
+										
 					//if (!$matched)
 					{
 						$parameters = array();
@@ -772,6 +780,38 @@ function parse($verbatim_code, $extend = 10)
 						$result->parameters[] = $parameters;
 					}					
 					break;	
+					
+				//------------------------------------------------------------------------
+				case 'CMNH':
+					// Cincinatti 
+					{
+						$parameters = array();
+						$parameters['institutionCode'] = 'CMC';
+						$parameters['catalogNumber'] = $result->catalogNumber;
+						$result->parameters[] = $parameters;
+						
+						// birds
+						if (is_numeric($result->catalogNumber))
+						{
+							$prefixes = array('B');
+							foreach ($prefixes as $prefix)
+							{
+								$parameters = array();
+								$parameters['institutionCode'] = 'CMC';
+								$parameters['catalogNumber'] = $prefix . $result->catalogNumber;
+								$result->parameters[] = $parameters;
+							}
+						}
+					}					
+										
+					// default
+					{
+						$parameters = array();
+						$parameters['institutionCode'] = $result->institutionCode;
+						$parameters['catalogNumber'] = $result->catalogNumber;
+						$result->parameters[] = $parameters;
+					}					
+					break;						
 					
 				//------------------------------------------------------------------------
 				case 'CNMA':
