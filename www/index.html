@@ -103,14 +103,19 @@
 					         issues = '!F';
 					      }
 					   }
-					   html += '<td>' + issues + '</td>';
-					   
+					   html += '<td>' + issues + '</td>';					   
 					     
 					   var typeStatus = '';
 					   if (data.hits[i].typeStatus) {
 					     typeStatus = data.hits[i].typeStatus;
 					   }
 					   html += '<td>' + typeStatus + '</td>';
+
+					   var recordNumber = '';
+					   if (data.hits[i].recordNumber) {
+					     recordNumber = data.hits[i].recordNumber;
+					   }
+					   html += '<td>' + recordNumber + '</td>';
 					   
 					   
 					   var map = '';
