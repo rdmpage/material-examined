@@ -72,6 +72,9 @@ $patterns = array(
 	
 	// BMNH reg. no.1898.9.1.1233
 	'/^(?<institutionCode>BMNH)\s*reg.\s*no.\s*(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
+	
+	// BMNH No. 1997.7.7
+	'/^(?<institutionCode>BMNH)\s*[N|n]o.\s*(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
 
 	// BMNH 2005.8.9.105-106 (not a range FFS)
 	'/^(?<institutionCode>BMNH)\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+(-\d+))$/',
