@@ -130,7 +130,7 @@ $patterns = array(
 	'/^(?<institutionCode>MCZ)\s+(?<catalogNumber>[A|R]\.\d+)$/',
 	
 	// MNHN 1974-244
-	'/^(?<institutionCode>MNHN)(\s+|_)(?<catalogNumber>[0-9]{4}[-|_]\d+)$/',
+	'/^(?<institutionCode>MNHN)(\s*|_)(?<catalogNumber>[0-9]{4}[-|_]\d+)$/',
 	
 	
 	// MNHN:ENSIF 2664
@@ -948,7 +948,17 @@ function parse($verbatim_code, $extend = 10)
 					$parameters['institutionCode'] = $result->institutionCode;
 					$parameters['catalogNumber'] = $result->catalogNumber;
 					$result->parameters[] = $parameters;
-					break;									
+					break;	
+					
+				//------------------------------------------------------------------------
+				case 'KUT':
+					$parameters = array();
+					$parameters['institutionCode'] = 'KU';
+					$parameters['collectionCode'] = 'KUIT';
+					$parameters['catalogNumber'] = preg_replace('/^0+/', '', $result->catalogNumber);
+					$result->parameters[] = $parameters;
+					break;				
+													
 					
 				//------------------------------------------------------------------------
 				case 'KUNHM':
