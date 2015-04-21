@@ -156,6 +156,9 @@ $patterns = array(
 	// NHMUK:1822.9.1.932
 	'/^(?<institutionCode>NHMUK)(:|\s*)(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
 	
+	// NHM:BMNH20100253
+	'/^NHM:(?<institutionCode>BMNH)(?<catalogNumber>\d+)$/',
+	
 	// NTM S.10623-001
 	'/^(?<institutionCode>NTM)\s+(?<catalogNumber>[A-Z]\.\d+(-\d+)?)$/',
 	
