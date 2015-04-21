@@ -1698,7 +1698,7 @@ function parse($verbatim_code, $extend = 10)
 						// No prefixes
 						if (preg_match('/^(?<main>\d+)[\.|-]?(?<suffix>\d+)$/', $result->catalogNumber, $m))
 						{
-							$prefixes = array('P', 'R');
+							$prefixes = array('A', 'P', 'R');
 							foreach ($prefixes as $prefix)
 							{
 								$parameters = array();
@@ -1714,7 +1714,28 @@ function parse($verbatim_code, $extend = 10)
 								}
 							}
 							$matched = true;
+						}	
+						
+						if ($result->institutionCode == 'WAM' && is_numeric($result->catalogNumber))
+						{
+							$prefixes = array('A', 'P', 'R');
+							foreach ($prefixes as $prefix)
+							{
+								$parameters = array();
+
+								$catalog_numbers = extend_catalog_number($prefix . $result->catalogNumber, $extend_by);
+					
+								foreach ($catalog_numbers as $catalog_number)
+								{
+									$parameters = array();
+									$parameters['institutionCode'] = $result->institutionCode;
+									$parameters['catalogNumber'] = $catalog_number;
+									$result->parameters[] = $parameters;
+								}
+							}
+							$matched = true;
 						}																			
+																								
 																			
 					}
 					// default
