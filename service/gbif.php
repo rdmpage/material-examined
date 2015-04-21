@@ -13,6 +13,8 @@ function search ($specimen, $scientificName = '')
 	
 	$hits = array();
 	
+	$hit_keys = array();
+	
 	if ($specimen->parsed)
 	{
 		foreach ($specimen->parameters as $parameters)
@@ -36,8 +38,15 @@ function search ($specimen, $scientificName = '')
 				$obj = json_decode($json);
 				foreach ($obj->results as $occurrence)
 				{
+					// We may encounter the same record more than once, so ensure uniqueness
+					if (!in_array($occurrence->gbifID, $hit_keys))
+					{
+						$hit_keys[] = $occurrence->gbifID;
+						$hits[] = $occurrence;
+					}
+				
 					//$hits[$occurrence->gbifID] = $occurrence;
-					$hits[] = $occurrence;
+					
 				}
 			}
 
