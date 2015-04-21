@@ -36,7 +36,8 @@ function search ($specimen, $scientificName = '')
 				$obj = json_decode($json);
 				foreach ($obj->results as $occurrence)
 				{
-					$hits[$occurrence->gbifID] = $occurrence;
+					//$hits[$occurrence->gbifID] = $occurrence;
+					$hits[] = $occurrence;
 				}
 			}
 
