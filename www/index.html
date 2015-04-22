@@ -77,7 +77,25 @@
 					    html += '<br />' + '<span style="font-size:12px;color:green;">' + code + '</span>';
 					   
 					   if (data.hits[i].occurrenceID) {
-					     html += '<br />' + '<span style="font-size:10px;color:rgb(128,128,128);">' + data.hits[i].occurrenceID + '</span>';
+					     var handled = false;
+					     if (data.hits[i].institutionCode == 'NHMUK') {
+					       html += '<br /><a href="http://data.nhm.ac.uk/specimen/' + data.hits[i].occurrenceID + '" target="_new">';
+					       html += '<span style="font-size:10px;color:rgb(128,128,128);">' + data.hits[i].occurrenceID + '</span>';
+					       html += '</a>';
+					       handled = true;
+					    }
+					     if (!handled) {
+					       if (data.hits[i].occurrenceID.match(/^http/)) {
+					         html += '<br /><a href="' + data.hits[i].occurrenceID + '" target="_new">';
+					         html += '<span style="font-size:10px;color:rgb(128,128,128);">' + data.hits[i].occurrenceID + '</span>';
+					         html += '</a>';
+					         handled = true;
+					      }
+					    }
+					       
+					     if (!handled) {
+					       html += '<br />' + '<span style="font-size:10px;color:rgb(128,128,128);">' + data.hits[i].occurrenceID + '</span>';
+					     }
 					   }
 					   
 					   html += '</td>';  
