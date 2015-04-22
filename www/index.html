@@ -20,6 +20,17 @@
     
     <script>
     
+    //http://stackoverflow.com/a/25359264
+	$.urlParam = function(name){
+		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+		if (results==null){
+		   return null;
+		}
+		else{
+		   return results[1] || 0;
+		}
+	}    
+	
     // http://stackoverflow.com/a/16976927
 	function ObjectLength_Modern( object ) {
 		return Object.keys(object).length;
@@ -47,6 +58,7 @@
 		$("#output").html('');
 		     
     	$('#results').html('');
+    	$("#link").html('<a href="?code=' + encodeURIComponent(code) + '" target="_new">Link for this result</a>');
     	$("#api").html('<a href="../service/api.php?code=' + encodeURIComponent(code) + '&match&extend=10" target="_new">See API call</a>');
 
     	
@@ -211,10 +223,21 @@
 			<input type="text" id="code" value="" placeholder="MNHN 1999-402">
 			<button onclick="match();">Find</button>
 			<div id="output" style="color:rgb(128,128,128);height:30px;">Status</div>
+			<div id="link" height:30px;"></div>
 			<div id="api" height:30px;"></div>
 		</div>
 		
 		<div id="results"></div>
+		
+	<script>
+		// do we have a URL parameter?
+		var code = $.urlParam('code');
+		if (code) {
+		   code = decodeURIComponent(code);
+		   $('#code').val(code); 
+		   match();
+		}
+	</script>
   
   </body>
 </html>
