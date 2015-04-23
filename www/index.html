@@ -20,6 +20,16 @@
     
     <script>
     
+    // http://stackoverflow.com/a/11407464
+	$(document).keypress(function(event){
+
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+		if(keycode == '13'){
+			$('#find').click();   
+		}
+
+	});    
+    
     //http://stackoverflow.com/a/25359264
 	$.urlParam = function(name){
 		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -221,7 +231,7 @@
 		<div style="width:100%;padding-bottom:20px;">
 			<p>Enter specimen code</p>
 			<input type="text" id="code" value="" placeholder="MNHN 1999-402">
-			<button onclick="match();">Find</button>
+			<button id="find" onclick="match();">Find</button>
 			<div id="output" style="color:rgb(128,128,128);height:30px;">Status</div>
 			<div id="link" height:30px;"></div>
 			<div id="api" height:30px;"></div>
