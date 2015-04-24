@@ -114,6 +114,21 @@
 					         handled = true;
 					      }
 					    }
+					    
+					    // USNM verts
+					     if (!handled) {
+					       if (data.hits[i].datasetKey == '5df38344-b821-49c2-8174-cf0f29f4df0d') {
+					          var verts=['Mammalia', 'Aves', 'Amphibia', 'Elasmobranchii', 'Reptilia', 'Actinopterygii'];
+					         if (verts.indexOf(data.hits[i].class) != -1) {
+								 var parts = data.hits[i].occurrenceID.split('.');
+								 html += '<br /><a href="http://collections.si.edu/search/results.htm?q=record_ID:nmnhvz_' + parts[1] + '" target="_new">';
+								 html += '<span style="font-size:10px;color:rgb(128,128,128);">' + data.hits[i].occurrenceID + '</span>';
+								 html += '</a>';
+								 handled = true;
+						    }
+					      }
+					    }
+					    
 					       
 					     if (!handled) {
 					       html += '<br />' + '<span style="font-size:10px;color:rgb(128,128,128);">' + data.hits[i].occurrenceID + '</span>';
