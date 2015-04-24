@@ -61,8 +61,8 @@ $patterns = array(
 	'/^(?<institutionCode>BIOUG)<CAN>:(?<catalogNumber>.*)$/',
 	
 	// BM 1860.3.18.18
-	'/^(?<institutionCode>BM)\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
-	'/^(?<institutionCode>BM\(NH\))\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
+	'/^(?<institutionCode>BM)\s*(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
+	'/^(?<institutionCode>BM\(NH\))\s*(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
 	
 	// BM000566339 NHM plant barcode
 	'/^(?<institutionCode>BM)(?<catalogNumber>0\d+)$/',
