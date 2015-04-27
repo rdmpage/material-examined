@@ -24,6 +24,8 @@ $patterns = array(
 	// AM-M. 5786
 	'/^(?<institutionCode>AM)-(?<catalogNumber>[A-Z]\.\s+\d+)$/',
 	
+	// A.M.N.H. No. 708117
+	'/^(?<institutionCode>A.M.N.H.)\s+[N|n]o\.\s+(?<catalogNumber>\d+)$/',
 	
 	// AMNH:466.236 (e.g., JN574453)
 	'/^(?<institutionCode>AMNH):(?<catalogNumber>\d+\.\d+)$/',
@@ -472,7 +474,12 @@ function parse($verbatim_code, $extend = 10)
 					break;
 					
 				//------------------------------------------------------------------------
+				case 'A.M.N.H.':
 				case 'AMNH':
+				
+					$institutionCode = $result->institutionCode;
+					$institutionCode = str_replace(".", "", $institutionCode);
+				
 					$matched = false;
 					
 					
@@ -492,7 +499,7 @@ function parse($verbatim_code, $extend = 10)
 						if (isset($result->collectionCode))
 						{
 							$parameters = array();
-							$parameters['institutionCode'] = $result->institutionCode;
+							$parameters['institutionCode'] = $institutionCode;
 							$parameters['catalogNumber'] = $result->collectionCode . '-' . $catalogNumber;
 							$result->parameters[] = $parameters;
 							$matched = true;
@@ -503,7 +510,7 @@ function parse($verbatim_code, $extend = 10)
 							foreach ($prefixes as $prefix)
 							{
 								$parameters = array();
-								$parameters['institutionCode'] = $result->institutionCode;
+								$parameters['institutionCode'] = $institutionCode;
 								$parameters['catalogNumber'] = $prefix . '-' . $catalogNumber;
 								$result->parameters[] = $parameters;
 							}
@@ -518,7 +525,7 @@ function parse($verbatim_code, $extend = 10)
 						if (preg_match('/(?<prefix>[A-Z])(?<code>\d+)/', $result->catalogNumber, $m))
 						{
 							$parameters = array();
-							$parameters['institutionCode'] = $result->institutionCode;
+							$parameters['institutionCode'] = $institutionCode;
 							$parameters['catalogNumber'] = $m['prefix'] . '-' . $m['code'];
 							$result->parameters[] = $parameters;
 							
@@ -530,7 +537,7 @@ function parse($verbatim_code, $extend = 10)
 					if (!$matched)
 					{
 						$parameters = array();
-						$parameters['institutionCode'] = $result->institutionCode;
+						$parameters['institutionCode'] = $institutionCode;
 						$parameters['catalogNumber'] = $result->catalogNumber;
 						$result->parameters[] = $parameters;
 					}					
