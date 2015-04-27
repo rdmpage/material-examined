@@ -237,6 +237,9 @@ $patterns = array(
 	// UTAR-51496
 	'/^(?<institutionCode>UTA)[R]-(?<catalogNumber>\d+)$/',
 	
+	// UWBM Bu42872
+	'/^(?<institutionCode>UWBM)\s*(?<catalogNumber>Bu\d+)$/',
+	
 	// WAM 26230-007
 	'/^(?<institutionCode>WAM)\s+(?<catalogNumber>\d+(\-\d+)?)$/',	
 	
@@ -1686,6 +1689,28 @@ function parse($verbatim_code, $extend = 10)
 						$result->parameters[] = $parameters;
 					}
 					else
+					{
+						$parameters = array();
+						$parameters['institutionCode'] = $result->institutionCode;
+						$parameters['catalogNumber'] = $result->catalogNumber;
+						$result->parameters[] = $parameters;
+					}					
+					break;
+
+				//------------------------------------------------------------------------
+				case 'UWBM':
+					if (!is_numeric($result->catalogNumber))
+					{
+						if (preg_match('/^(?<prefix>Bu)(?<catalogNumber>\d+)/', $result->catalogNumber, $m))
+						{ 
+							$parameters = array();
+							$parameters['institutionCode'] = $result->institutionCode;
+							$parameters['collectionCode'] = 'Bird';
+							$parameters['catalogNumber'] = $m['catalogNumber'];
+							$result->parameters[] = $parameters;
+						}
+					}
+					
 					{
 						$parameters = array();
 						$parameters['institutionCode'] = $result->institutionCode;
