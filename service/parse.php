@@ -1632,7 +1632,7 @@ function parse($verbatim_code, $extend = 10)
 					{
 						// Deal with USNM catalog codes like USNM 730715.457409
 						
-						$prefixes = array('', 'V');
+						$prefixes = array('', 'PAL', 'V');
 						foreach ($prefixes as $prefix)
 						{
 							$extend_by = max($extend_by, 30);
