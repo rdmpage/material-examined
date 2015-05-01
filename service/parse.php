@@ -1806,6 +1806,22 @@ function parse($verbatim_code, $extend = 10)
 					$parameters['catalogNumber'] = $result->catalogNumber;
 					$result->parameters[] = $parameters;					
 					break;
+
+				//------------------------------------------------------------------------
+				case 'YIO':	
+					if (is_numeric($result->catalogNumber))
+					{
+						$parameters = array();
+						$parameters['institutionCode'] = $result->institutionCode;
+						$parameters['catalogNumber'] = 'YIO-' . str_pad($result->catalogNumber, 5,'0', STR_PAD_LEFT);
+						$result->parameters[] = $parameters;																		
+					}
+					// default
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;					
+					break;
 					
 				//------------------------------------------------------------------------
 				case 'YPM':								
