@@ -972,6 +972,7 @@ function parse($verbatim_code, $extend = 10)
 					
 				//------------------------------------------------------------------------
 				case 'KUNHM':
+				case 'UKMNH': // e.g., http://dx.doi.org/10.1016/j.ympev.2006.12.004
 					$parameters = array();
 					$parameters['institutionCode'] = 'KU';
 					$parameters['catalogNumber'] = $result->catalogNumber;
