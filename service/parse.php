@@ -1564,6 +1564,21 @@ function parse($verbatim_code, $extend = 10)
 					$result->parameters[] = $parameters;
 					break;	
 					
+				// TRING 1877111743
+				case 'TRING':
+					$parameters = array();
+					$parameters['institutionCode'] = 'NHMUK';
+					if (preg_match('/^([0-9]{10})$/', $result->catalogNumber))
+					{
+						$parameters['catalogNumber']  = preg_replace('/^([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})$/', "$1.$2.$3.$4", $result->catalogNumber);
+					}
+					else
+					{
+						$parameters['catalogNumber'] = $result->catalogNumber;
+					}
+					$result->parameters[] = $parameters;
+					break;	
+					
 				//------------------------------------------------------------------------
 				case 'UAZ':
 					if (is_numeric($result->catalogNumber))
