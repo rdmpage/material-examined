@@ -632,7 +632,9 @@ function parse($verbatim_code, $extend = 10)
 					$prefixes = array();
 					if (preg_match('/^[0-9]{2}\./', $catalogNumber))
 					{
+						$prefixes[] = '18';
 						$prefixes[] = '19';
+						$prefixes[] = 'ZD 18';
 						$prefixes[] = 'ZD 19';
 					}
 					if (preg_match('/^[0-9]{1}\./', $catalogNumber))
@@ -1314,7 +1316,7 @@ function parse($verbatim_code, $extend = 10)
 						if (is_numeric($result->catalogNumber))
 						{
 							// Institution.prefix.catalogue
-							$prefixes = array('CRUS.A', 'CRUS.D','INS', 'MAM', 'MOL', 'RENA');
+							$prefixes = array('AVES', 'CRUS.A', 'CRUS.D','INS', 'MAM', 'MOL', 'RENA');
 							foreach ($prefixes as $prefix)
 							{
 								$parameters = array();
