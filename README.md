@@ -222,8 +222,11 @@ Discussed in “DNA from a 100-year-old holotype confirms the validity of a pote
 
 ### BMNH 1920.6.26.42
 
-GBIF maps to  Spizaetus bartelsi Stresemann, 1924 but is Spizaetus batesi W. L. Sclater, 1919 (description http://biostor.org/reference/145776, see also http://www.zoonomen.net/cit/RI/SP/Sitt/sitt00626a.jpg ) Sclater then synonymies this with Limnaëtus africanus (= Spizaetus africanus) see “Remarks on Spizaëtus batesi” http://biostor.org/reference/145777
+GBIF maps to  Spizaetus bartelsi Stresemann, 1924 but is Spizaetus batesi W. L. Sclater, 1919 (description http://biostor.org/reference/145776, see also http://www.zoonomen.net/cit/RI/SP/Sitt/sitt00626a.jpg ) Sclater then synonymises this with Limnaëtus africanus (= Spizaetus africanus) see “Remarks on Spizaëtus batesi” http://biostor.org/reference/145777
 
+### BMNH 8.4.3.73
+
+GBIF maps to *Aethomys chrysophilus* (de Winton, 1897) whereas is holotype for *Mus chrysophilus ineptus* Thomas and Wroughton 1908, see http://bionames.org/references/10.1515/mamm.1998.62.3.427
 
 
 
