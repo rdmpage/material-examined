@@ -228,6 +228,13 @@ GBIF maps to  Spizaetus bartelsi Stresemann, 1924 but is Spizaetus batesi W. L. 
 
 GBIF maps to *Aethomys chrysophilus* (de Winton, 1897) whereas is holotype for *Mus chrysophilus ineptus* Thomas and Wroughton 1908, see http://bionames.org/references/10.1515/mamm.1998.62.3.427
 
+### CNMA 22439
+
+GBIF has http://gbif.org/occurrence/370555719 identified as *Peromyscus simulus* (by Vargas Cuenca J 2004-7-15), but is holotype of *Habromys delicatulus* described in 2002 see http://biostor.org/reference/81388 
+
+Note that *Peromyscus simulus* has been placed in *Habromys*. Perhaps museum labels haven’t been updated?
+
+Sequence data relevant to this taxon http://dx.doi.org/10.1016/j.ympev.2006.08.019
 
 
 

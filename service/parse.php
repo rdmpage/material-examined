@@ -833,6 +833,7 @@ function parse($verbatim_code, $extend = 10)
 					
 				//------------------------------------------------------------------------
 				case 'CNMA':
+				case 'CNM':
 					{
 						$parameters = array();
 						$parameters['institutionCode'] = 'IBUNAM';
@@ -996,6 +997,9 @@ function parse($verbatim_code, $extend = 10)
 					$parameters['catalogNumber'] = $result->catalogNumber;
 					$result->parameters[] = $parameters;
 					break;
+					
+					
+					
 
 				//------------------------------------------------------------------------
 				case 'MCZ':
@@ -1154,6 +1158,22 @@ function parse($verbatim_code, $extend = 10)
 					$parameters['catalogNumber'] = $result->catalogNumber;
 					$result->parameters[] = $parameters;
 					break;
+					
+				//------------------------------------------------------------------------
+				// Colección de Mamíferos del Museo de Zoología 'Alfonso L . Herrera', México (MZFC, UNAM)
+				case 'MZFC':
+					$parameters = array();
+					$parameters['institutionCode'] = 'FCUNAM';
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					
+					// default
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;					
+					break;
+					
 				
 					
 				//------------------------------------------------------------------------
@@ -1761,7 +1781,7 @@ function parse($verbatim_code, $extend = 10)
 						// No prefixes
 						if (preg_match('/^(?<main>\d+)[\.|-]?(?<suffix>\d+)$/', $result->catalogNumber, $m))
 						{
-							$prefixes = array('A', 'P', 'R');
+							$prefixes = array('A', 'P', 'R', 'S');
 							foreach ($prefixes as $prefix)
 							{
 								$parameters = array();
