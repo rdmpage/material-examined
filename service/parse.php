@@ -1202,6 +1202,7 @@ function parse($verbatim_code, $extend = 10)
 					
 					
 				//------------------------------------------------------------------------
+				case 'MV': // e.g. PLoS http://dx.doi.org/10.1371/journal.pone.0024047
 				case 'NMV':
 				case 'NMV<AUS>':
 					$matched = false;
