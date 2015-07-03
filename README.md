@@ -236,6 +236,15 @@ Note that *Peromyscus simulus* has been placed in *Habromys*. Perhaps museum lab
 
 Sequence data relevant to this taxon http://dx.doi.org/10.1016/j.ympev.2006.08.019
 
+### KU 161003
+
+Holotype, GBIF matches to family “Cricetidae” whereas verbatim has “Tanyuromys aphrastus” http://www.gbif.org/occurrence/686488116/verbatim  *Tanyuromys* is a genus described in 2012, http://bionames.org/references/376a83d5159fee72deb3f89e16b61c1b, the type species is *Oryzomys aphrastus* Harris, 1932 
+
+So GBIF doesn’t have this combination, and hence can’t match the name.
+
+
+
+
 
 
 
