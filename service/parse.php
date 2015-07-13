@@ -393,25 +393,36 @@ function parse($verbatim_code, $extend = 10)
 			{
 				//------------------------------------------------------------------------
 				case 'AM':
-					
-					$parameters = array();
-					$parameters['institutionCode'] = $result->institutionCode;
-					$parameters['catalogNumber'] = preg_replace('/([A-Z])\.?\s*(\d+)/', '$1.$2', $result->catalogNumber);
-					$result->parameters[] = $parameters;
-					
-					// extend (e.g., for molluscs)
-					$catalog = $parameters['catalogNumber'];
-					$catalog_numbers = extend_catalog_number($catalog, $extend_by);
-					
-					foreach ($catalog_numbers as $catalog_number)
+					if (is_numeric($result->catalogNumber))
 					{
-						$parameters['institutionCode'] = $code;
-						$parameters['catalogNumber'] = $catalog_number;
-						$result->parameters[] = $parameters;
+						$prefixes = array('M','R','W');
+						foreach ($prefixes as $prefix)
+						{
+							$parameters = array();
+							$parameters['institutionCode'] = $result->institutionCode;
+							$parameters['catalogNumber'] = $prefix . '.' . $result->catalogNumber;
+							$result->parameters[] = $parameters;
+						}
+						$matched = true;
 					}
+					else
+					{
+						$parameters = array();
+						$parameters['institutionCode'] = $result->institutionCode;
+						$parameters['catalogNumber'] = preg_replace('/([A-Z])\.?\s*(\d+)/', '$1.$2', $result->catalogNumber);
+						$result->parameters[] = $parameters;
 					
+						// extend (e.g., for molluscs)
+						$catalog = $parameters['catalogNumber'];
+						$catalog_numbers = extend_catalog_number($catalog, $extend_by);
 					
-					
+						foreach ($catalog_numbers as $catalog_number)
+						{
+							$parameters['institutionCode'] = $result->institutionCode;
+							$parameters['catalogNumber'] = $catalog_number;
+							$result->parameters[] = $parameters;
+						}
+					}
 					break;
 					
 				//------------------------------------------------------------------------
@@ -438,7 +449,7 @@ function parse($verbatim_code, $extend = 10)
 					//$matched = false;
 					if (is_numeric($result->catalogNumber))
 					{
-						$prefixes = array('R','W');
+						$prefixes = array('M','R','W');
 						foreach ($prefixes as $prefix)
 						{
 							$parameters = array();
