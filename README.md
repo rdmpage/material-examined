@@ -243,6 +243,13 @@ Holotype, GBIF matches to family “Cricetidae” whereas verbatim has “Tanyur
 So GBIF doesn’t have this combination, and hence can’t match the name.
 
 
+### BMNH 1922.12.18.54
+
+Holotype of *Phascogale flavipes adusta* Thomas, 1923 (doi:10.1080/00222932308632835) http://bionames.org/references/40b0f12c6d6879dcd3b2944c592d4d80 In GBIF is matched to *Phascogale flavipes* Le Souef & Burrell, 1926, whereas is currently *Antechinus adustus* (see, e.g. http://bionames.org/references/2391a7644dc28bdb6fb2f2a90dcbd625 )
+
+So, GBIF matches to wrong taxon…
+
+
 
 
 
