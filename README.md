@@ -249,6 +249,9 @@ Holotype of *Phascogale flavipes adusta* Thomas, 1923 (doi:10.1080/0022293230863
 
 So, GBIF matches to wrong taxon…
 
+### BMNH 1955.42.65
+
+Search misses *Serinus atrogularis seshekeensis* http://www.gbif.org/occurrence/1057254282 http://data.nhm.ac.uk/specimen/6987b38e-ea8b-45ae-90ac-807db1d16c51 which has catalog number “1955.42.65. (Collector`s no. M56.)” (sigh)
 
 
 
