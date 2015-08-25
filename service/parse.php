@@ -1793,7 +1793,7 @@ function parse($verbatim_code, $extend = 10)
 						// No prefixes
 						if (preg_match('/^(?<main>\d+)[\.|-]?(?<suffix>\d+)$/', $result->catalogNumber, $m))
 						{
-							$prefixes = array('A', 'P', 'R', 'S');
+							$prefixes = array('A', 'M', 'P', 'R', 'S');
 							foreach ($prefixes as $prefix)
 							{
 								$parameters = array();
@@ -1813,7 +1813,7 @@ function parse($verbatim_code, $extend = 10)
 						
 						if ($result->institutionCode == 'WAM' && is_numeric($result->catalogNumber))
 						{
-							$prefixes = array('A', 'P', 'R');
+							$prefixes = array('A', 'M', 'P', 'R', 'S');
 							foreach ($prefixes as $prefix)
 							{
 								$parameters = array();
