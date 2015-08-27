@@ -932,6 +932,11 @@ function parse($verbatim_code, $extend = 10)
 						$parameters['institutionCode'] = $result->institutionCode;
 						$parameters['catalogNumber'] = $catalog_number . '-Arthropoda';
 						$result->parameters[] = $parameters;
+
+						$parameters['institutionCode'] = $result->institutionCode;
+						$parameters['catalogNumber'] = $catalog_number . '-Mollusca';
+						$result->parameters[] = $parameters;
+
 					}
 					break;	
 					
@@ -1650,6 +1655,12 @@ function parse($verbatim_code, $extend = 10)
 						$parameters['institutionCode'] = 'FLMNH';
 						$parameters['catalogNumber'] = $catalog_number;
 						$result->parameters[] = $parameters;
+						
+						// 
+						$parameters['institutionCode'] = 'FLMNH';
+						$parameters['catalogNumber'] = $catalog_number . '-Mollusca';
+						$result->parameters[] = $parameters;
+						
 
 					}
 					break;					
