@@ -181,14 +181,29 @@
 					   html += '<td>' + map + '</td>';
 					   
 					   var media = '';
-					   if (data.hits[i].media) {
-					     if (data.hits[i].media[0].identifier) {
-					        media = '<img src="' + data.hits[i].media[0].identifier + '" height="100" />';
-					     }
-					     if (data.hits[i].media[0].references) {
-					        media = '<img src="' + data.hits[i].media[0].references + '" height="100" />';
-					     }
-					   }
+					   
+					   var imageUrl = '';
+					   var thumbnailImageUrl = '';
+					   
+					   for (var j in data.hits[i].media) {
+					      if (data.hits[i].media[j].type) {
+					         if (data.hits[i].media[j].type == "StillImage") {
+					            if (data.hits[i].media[j].description == "thumbnail") {
+					               thumbnailImageUrl = data.hits[i].media[j].identifier;
+					            } else {
+					              imageUrl = data.hits[i].media[j].identifier;
+					            }
+					         }
+					      }
+					    }
+					    
+					   if (thumbnailImageUrl != '') {
+					     media = '<img src="' + thumbnailImageUrl + '" height="100" />';
+					    } else {
+					      if (imageUrl != '') {
+					        media = '<img src="' + imageUrl + '" height="100" />';
+					      }
+					    }
 					   html += '<td>' + media + '</td>';
 					   
 					   var genbank_list = [];
