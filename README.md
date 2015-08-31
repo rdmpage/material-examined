@@ -253,6 +253,13 @@ So, GBIF matches to wrong taxon…
 
 Search misses *Serinus atrogularis seshekeensis* http://www.gbif.org/occurrence/1057254282 http://data.nhm.ac.uk/specimen/6987b38e-ea8b-45ae-90ac-807db1d16c51 which has catalog number “1955.42.65. (Collector`s no. M56.)” (sigh)
 
+### RMCA A.78820
+
+Currently (2015-08-30) exists in three copies:
+
+http://gbif.org/occurrence/1024442512
+http://gbif.org/occurrence/665465164
+http://gbif.org/occurrence/317834695 (URN:catalog:RMCA:Aves:RMCA A.78820)
 
 
 
