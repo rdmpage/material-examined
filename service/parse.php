@@ -21,6 +21,9 @@ $patterns = array(
 	// AM C.478013a
 	'/^(?<institutionCode>AM)\s*(?<catalogNumber>[A-Z]\.\d+)[a-z]$/',
 	
+	// AM KS 57959
+	'/^(?<institutionCode>AM)\s*(?<catalogNumber>[A-Z]+\s+\d+)$/',
+	
 	// AM-M. 5786
 	'/^(?<institutionCode>AM)-(?<catalogNumber>[A-Z]\.\s+\d+)$/',
 	
@@ -665,6 +668,16 @@ function parse($verbatim_code, $extend = 10)
 						$parameters['catalogNumber'] = $prefix . $catalogNumber;
 						$result->parameters[] = $parameters;
 					}
+					
+					// Some BMNH numbers are truncated in the database
+					if (preg_match('/^(?<decade>[0-9]{2})(?<rest>[0-9]{2}\.(.*))$/', $catalogNumber, $m))
+					{
+						$parameters = array();
+						$parameters['institutionCode'] = 'NHMUK';
+						$parameters['catalogNumber'] = $m['rest'];
+						$result->parameters[] = $parameters;
+					}
+					
 					break;				
 					
 				//------------------------------------------------------------------------
@@ -1106,7 +1119,9 @@ function parse($verbatim_code, $extend = 10)
 							$parameters['institutionCode'] = $result->institutionCode;
 							$parameters['catalogNumber'] = '0.' . $result->catalogNumber;
 							$result->parameters[] = $parameters;
-						}													
+						}		
+						
+																	
 						if (preg_match('/^(?<one>[0-9]{4})[-|\.|_](?<two>\d+)/', $result->catalogNumber, $m))
 						{
 						
@@ -1117,6 +1132,17 @@ function parse($verbatim_code, $extend = 10)
 							$parameters['institutionCode'] = $result->institutionCode;
 							$parameters['catalogNumber'] = $m['one'] . '-' . str_pad($m['two'], 4,'0', STR_PAD_LEFT);
 							$result->parameters[] = $parameters;
+							
+							/*
+							// trim zero padding
+							if (preg_match('/^0+(?<nonzero>\d+)$/', $m['two'], $mm))
+							{
+								$parameters = array();
+								$parameters['institutionCode'] = $result->institutionCode;
+								$parameters['catalogNumber'] = $m['one'] . '-' . $mm['nonzero'];
+								$result->parameters[] = $parameters;
+							}			
+							*/				
 							
 							// prefixes (e.g., bird collection
 							$prefixes = array('MO');
@@ -1146,7 +1172,7 @@ function parse($verbatim_code, $extend = 10)
 																			
 					}
 					// default
-					if (!$matched)
+					if ($matched)
 					{
 						$parameters = array();
 						$parameters['institutionCode'] = $result->institutionCode;
