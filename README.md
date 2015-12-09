@@ -60,7 +60,7 @@ Code uses the GBIF API, images of higher taxa from http://phylopic.org
 
 * MNHN_2008-998  GBIF fails to map http://gbif.org/occurrence/583438267 to anything, but genus is present. Also a BOLD sample MBFA840-07 (Moorea) also in GenBank JQ431469 georeferenced (not in GBIF), GenBank vouch is MBIO1419.4, can link via BOLD
 
-* CAS:207283 Paratyle mapped to genus (sigh), but actually Arthroleptis bioko http://bionames.org/references/8560b8e7ef0b4075f4f854b40c8b9b66 genbank HM238196
+* CAS:207283 Paratype mapped to genus (sigh), but actually Arthroleptis bioko http://bionames.org/references/8560b8e7ef0b4075f4f854b40c8b9b66 genbank HM238196
 
 * BMNH 2002.101 holotype, has verbatim lat and long but not parsed (sigh)
 
