@@ -15,14 +15,18 @@ $patterns = array(
 	'/^[0]*(?<catalogNumber>\d+)[;|-]\s*(?<institutionCode>Smithsonian National Museum of Natural History)/i',
 	
 	
+	// Start note AM\s*[A-Z] will also catch AMNH, breaking code! Use \s+ and be more specific 
 	// AM
-	'/^(?<institutionCode>AM)\s*(?<catalogNumber>[A-Z]\.\d+)$/',
+	'/^(?<institutionCode>AM)\s+(?<catalogNumber>[A-Z]\.\d+)$/',
 	
 	// AM C.478013a
-	'/^(?<institutionCode>AM)\s*(?<catalogNumber>[A-Z]\.\d+)[a-z]$/',
+	'/^(?<institutionCode>AM)\s+(?<catalogNumber>[A-Z]\.\d+)[a-z]$/',
 	
 	// AM KS 57959
-	'/^(?<institutionCode>AM)\s*(?<catalogNumber>[A-Z]+\s+\d+)$/',
+	'/^(?<institutionCode>AM)\s+(?<catalogNumber>[A-Z]+\s+\d+)$/',
+	
+	// End note 
+	
 	
 	// AM-M. 5786
 	'/^(?<institutionCode>AM)-(?<catalogNumber>[A-Z]\.\s+\d+)$/',
@@ -126,6 +130,9 @@ $patterns = array(
 	
 	// MCZ:A-138404
 	'/^(?<institutionCode>MCZ):(?<catalogNumber>[A|R][\.|\-]\d+)$/',
+
+	// MCZR-192365
+	'/^(?<institutionCode>MCZ)(?<catalogNumber>[A|R][\.|\-]\d+)$/',
 	
 	
 	//MCZ-R49129
@@ -228,7 +235,7 @@ $patterns = array(
 	'/^UF:(?<institutionCode>UF)(?<catalogNumber>\d+)$/',
 	
 	// USNM ENT 00907308
-	'/^(?<institutionCode>USNM)\s+(?<collectionCode>ENT)\s+[0]*(?<catalogNumber>.*)$/',
+	'/^(?<institutionCode>USNM)\s*(?<collectionCode>ENT)\s+[0]*(?<catalogNumber>.*)$/',
 	
 	// UTA A51496
 	'/^(?<institutionCode>UTA)\s+(?<catalogNumber>[A-Z]\d+)$/',
@@ -1319,6 +1326,18 @@ function parse($verbatim_code, $extend = 10)
 					$parameters['catalogNumber'] = $result->catalogNumber;
 					$result->parameters[] = $parameters;					
 					break;
+
+				//------------------------------------------------------------------------
+				// Paris herbarium
+				case 'P':
+					if (is_numeric($result->catalogNumber))
+					{
+						$parameters = array();
+						$parameters['institutionCode'] = 'MNHN';
+						$parameters['catalogNumber'] = $result->institutionCode . $result->catalogNumber;
+						$result->parameters[] = $parameters;
+					}
+					break;	
 
 				//------------------------------------------------------------------------
 				case 'RBINS':
