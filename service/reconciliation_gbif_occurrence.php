@@ -73,7 +73,7 @@ class GBIFOccurrenceService extends ReconciliationService
 
 $service = new GBIFOccurrenceService();
 
-if (1)
+if (0)
 {
 	file_put_contents(dirname(__FILE__) . '/tmp/gbif_occurrence.txt', $_REQUEST['queries'], FILE_APPEND);
 }

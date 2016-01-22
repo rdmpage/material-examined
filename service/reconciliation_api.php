@@ -129,6 +129,12 @@ class ReconciliationService
 		
 		$this->QueryInitialise();
 		
+		if (1)
+		{
+			file_put_contents('tmp/q.txt', "Return: \n" . $queries . "\n" . print_r($q, true), FILE_APPEND);
+		}			
+		
+		
 		foreach ($q	as $query_key => $query)
 		{
 			$text = $query->query;
@@ -138,6 +144,7 @@ class ReconciliationService
 			{
 				$limit = $query->limit;
 			}				
+			$this->result->${query_key} = new stdclass;
 			$this->result->${query_key}->result = array();
 			
 			$properties = null;
@@ -158,7 +165,7 @@ class ReconciliationService
 		
 		// sort ?
 		
-		if (1)
+		if (0)
 		{
 			file_put_contents('tmp/r.txt', "Return: \n" . print_r($this->result, true), FILE_APPEND);
 		}			
