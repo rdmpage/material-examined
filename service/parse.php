@@ -22,6 +22,9 @@ $patterns = array(
 	// AM C.478013a
 	'/^(?<institutionCode>AM)\s+(?<catalogNumber>[A-Z]\.\d+)[a-z]$/',
 	
+	// AM I.29316-002
+	'/^(?<institutionCode>AM)\s+(?<catalogNumber>[A-Z]\.\d+-\d+)$/',
+	
 	// AM KS 57959
 	'/^(?<institutionCode>AM)\s+(?<catalogNumber>[A-Z]+\s+\d+)$/',
 	
