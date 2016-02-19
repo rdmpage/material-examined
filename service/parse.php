@@ -169,7 +169,9 @@ $patterns = array(
 	'/^(?<institutionCode>NHM)\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
 	
 	// NHMUK:1822.9.1.932
-	'/^(?<institutionCode>NHMUK)(:|\s*)(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
+	// NHM-UK 1956.60.9
+	'/^(?<institutionCode>NHM[-]?UK)(:|\s*)(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
+	
 	
 	// NHM:BMNH20100253
 	'/^NHM:(?<institutionCode>BMNH)(?<catalogNumber>\d+)$/',
@@ -1155,7 +1157,7 @@ function parse($verbatim_code, $extend = 10)
 							*/				
 							
 							// prefixes (e.g., bird collection
-							$prefixes = array('MO');
+							$prefixes = array('IE','MO');
 							foreach ($prefixes as $prefix)
 							{
 								$parameters = array();
@@ -1234,7 +1236,14 @@ function parse($verbatim_code, $extend = 10)
 					$parameters['institutionCode'] = 'NHMUK';
 					$parameters['catalogNumber'] = $result->catalogNumber;
 					$result->parameters[] = $parameters;
-					break;					
+					break;	
+
+				case 'NHM-UK':
+					$parameters = array();
+					$parameters['institutionCode'] = 'NHMUK';
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;	
 					
 				//------------------------------------------------------------------------
 				// NMNH (Smithsonian)

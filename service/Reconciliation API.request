@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>baseURL</key>
+	<string>http://localhost/~rpage/material-examined/service/reconciliation_gbif_occurrence.php</string>
+	<key>followRedirect</key>
+	<true/>
+	<key>handleJSONPCallbacks</key>
+	<false/>
+	<key>headers</key>
+	<array/>
+	<key>httpMethod</key>
+	<string>POST</string>
+	<key>jsonpScript</key>
+	<string></string>
+	<key>paramBodyUIChoice</key>
+	<integer>0</integer>
+	<key>parameters</key>
+	<array>
+		<dict>
+			<key>inUse</key>
+			<true/>
+			<key>parameter</key>
+			<string>queries</string>
+			<key>value</key>
+			<string>{ "q0": { "query": "USNM 100123", "limit": 3 }, "q1": { "query": "YPM:MAM:14080", "limit": 3 }, "q2": { "query": "AM M17939", "limit": 3 }, "q3": { "query": "UMMZ 207190", "limit": 3 }, "q4": { "query": "MNHN 1984.404", "limit": 3 }, "q5": { "query": "AMNH 75521", "limit": 3 }, "q6": { "query": "CAS 067789", "limit": 3 }, "q7": { "query": "UAM:Mamm:11470", "limit": 3 }, "q8": { "query": "UAM:Ento:230092", "limit": 3 }, "q9": { "query": "MNHN 1962.1111", "limit": 3 } }</string>
+		</dict>
+	</array>
+	<key>parametersType</key>
+	<integer>0</integer>
+	<key>presentBeforeChallenge</key>
+	<false/>
+	<key>stringEncoding</key>
+	<integer>4</integer>
+	<key>usingHTTPBody</key>
+	<false/>
+</dict>
+</plist>
