@@ -17,10 +17,10 @@ $patterns = array(
 	
 	// Start note AM\s*[A-Z] will also catch AMNH, breaking code! Use \s+ and be more specific 
 	// AM
-	'/^(?<institutionCode>AM)\s+(?<catalogNumber>[A-Z]\.\d+)$/',
+	'/^(?<institutionCode>AM)(\s+|:)uta(?<catalogNumber>[A-Z]\.\d+)$/',
 	
 	// AM C.478013a
-	'/^(?<institutionCode>AM)\s+(?<catalogNumber>[A-Z]\.\d+)[a-z]$/',
+	'/^(?<institutionCode>AM)(\s+|:)(?<catalogNumber>[A-Z]\.\d+)[a-z]$/',
 	
 	// AM I.29316-002
 	'/^(?<institutionCode>AM)\s+(?<catalogNumber>[A-Z]\.\d+-\d+)$/',
@@ -668,6 +668,11 @@ function parse($verbatim_code, $extend = 10)
 						$prefixes[] = '190';
 						$prefixes[] = 'ZD 190';
 					}
+					if (preg_match('/^[0-9]{4}\./', $catalogNumber))
+					{
+						$prefixes[] = 'ZD.';
+					}
+					
 					if (preg_match('/^0\d+$/', $catalogNumber))
 					{
 						$prefixes[] = 'BM';
@@ -705,7 +710,7 @@ function parse($verbatim_code, $extend = 10)
 					$matched = false;
 					if (!$matched)
 					{
-						if (preg_match('/^0(?<code>\d+)/', $result->catalogNumber, $m))
+						if (preg_match('/^0+(?<code>\d+)/', $result->catalogNumber, $m))
 						{
 							$matched = true;
 							$parameters = array();
@@ -1771,7 +1776,7 @@ function parse($verbatim_code, $extend = 10)
 				//------------------------------------------------------------------------
 				case 'UTA':
 					$matched = false;
-					if (preg_match('/(?<prefix>[A-Z])-(?<code>\d+)/', $result->catalogNumber, $m))
+					if (preg_match('/(?<prefix>[A-Z])[-]?(?<code>\d+)/', $result->catalogNumber, $m))
 					{
 						
 						$parameters = array();
