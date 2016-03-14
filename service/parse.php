@@ -20,7 +20,7 @@ $patterns = array(
 	'/^(?<institutionCode>AM)(\s+|:)uta(?<catalogNumber>[A-Z]\.\d+)$/',
 	
 	// AM C.478013a
-	'/^(?<institutionCode>AM)(\s+|:)(?<catalogNumber>[A-Z]\.\d+)[a-z]$/',
+	'/^(?<institutionCode>AM)(\s+|:)(?<catalogNumber>[A-Z]\.\d+)[a-z]?$/',
 	
 	// AM I.29316-002
 	'/^(?<institutionCode>AM)\s+(?<catalogNumber>[A-Z]\.\d+-\d+)$/',
