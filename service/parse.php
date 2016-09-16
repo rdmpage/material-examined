@@ -60,7 +60,7 @@ $patterns = array(
 	'/^(?<institutionCode>AMS):(?<catalogNumber>[A-Z]\s*[\.]?\d+)$/',
 	
 	// AMS I.16979-002
-	'/^(?<institutionCode>AMS)\s+(?<catalogNumber>[A-Z]\s*[\.]?\d+(-\d+)?)$/',
+	'/^(?<institutionCode>AMS)\s+(?<catalogNumber>[A-Z]\s*[\.]?\s*\d+(-\d+)?)$/',
 	
 	
 	// ASIZP-057643
@@ -182,6 +182,7 @@ $patterns = array(
 	// NMNH #00729059
 	'/^(?<institutionCode>NMNH)\s+(?<catalogNumber>#\d+)$/',
 	
+	
 	// NMV<AUS>:B18114
 	'/^(?<institutionCode>NMV)<AUS>:(?<catalogNumber>[A-Z]\d+)$/',
 
@@ -200,12 +201,14 @@ $patterns = array(
 	// NMV<AUS>:NMVD71314
 	'/^(?<institutionCode>NMV<AUS>):NMV(?<catalogNumber>[A-Z]\d+(-\d+)?)$/',
 	
-	// NSMT-Cr 16019
+	// NSMT-Cr 16019	
 	'/^(?<institutionCode>NSMT)-(?<collectionCode>\w+)\s+(?<catalogNumber>\d+)$/',
 	
 	// NSMT:Mo.72212
 	'/^(?<institutionCode>NSMT):(?<collectionCode>\w+)(\s+|\.|\-)(?<catalogNumber>\d+)$/',
 	
+	// NSMT Cr-14112
+	'/^(?<institutionCode>NSMT)\s+(?<collectionCode>\w+)-(?<catalogNumber>\d+)$/',
 	
 	// OMNH<USA-OK>:23758
 	'/^(?<institutionCode>OMNH)<USA-OK>:(?<catalogNumber>\d+)$/',
@@ -464,7 +467,7 @@ function parse($verbatim_code, $extend = 10)
 					//$matched = false;
 					if (is_numeric($result->catalogNumber))
 					{
-						$prefixes = array('M','R','W');
+						$prefixes = array('I', 'M','R','W');
 						foreach ($prefixes as $prefix)
 						{
 							$parameters = array();
@@ -478,7 +481,7 @@ function parse($verbatim_code, $extend = 10)
 					{
 						$code = 'AM';
 						$catalog = $result->catalogNumber;
-						$catalog = preg_replace('/^([A-Z])\s*(\d+(-\d+)?)$/', '$1.$2', $catalog);
+						$catalog = preg_replace('/^([A-Z])[\.]?\s*(\d+(-\d+)?)$/', '$1.$2', $catalog);
 						
 						$catalog_numbers = extend_catalog_number($catalog, $extend_by);
 						
@@ -696,6 +699,15 @@ function parse($verbatim_code, $extend = 10)
 					}
 					
 					break;				
+					
+				//------------------------------------------------------------------------
+				case 'BOL':
+					$parameters = array();
+					$parameters['institutionCode'] = 'BOLUSHERB';
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;				
+					
 					
 				//------------------------------------------------------------------------
 				case 'BSIP':
@@ -2021,9 +2033,24 @@ function parse($verbatim_code, $extend = 10)
 								$parameters['catalogNumber'] = $prefix . $result->catalogNumber;
 								$result->parameters[] = $parameters;
 							}
+							
+							if (preg_match('/(?<one>\d+)\.(?<two>\d+)/', $result->catalogNumber, $m))
+							{
+								$prefixes = array('Pisces_');
+								foreach ($prefixes as $prefix)
+								{
+									$parameters = array();
+									$parameters['institutionCode'] = $result->institutionCode;
+									$parameters['catalogNumber'] = $prefix . $m['one'] . ',' . $m['two'];
+									$result->parameters[] = $parameters;
+								}
+							}							
+							
+							
 							$matched = true;
 						}
 					}					
+					
 					
 					// default
 					$parameters = array();

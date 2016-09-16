@@ -261,6 +261,14 @@ http://gbif.org/occurrence/1024442512
 http://gbif.org/occurrence/665465164
 http://gbif.org/occurrence/317834695 (URN:catalog:RMCA:Aves:RMCA A.78820)
 
+### NHMUK 1870.10.26.176
+
+http://gbif.org/occurrence/1057410476
+http://data.nhm.ac.uk/specimen/492908bd-7e8f-433d-a1b9-067ca5ae8fd4
+
+*Bulimus angasianus* Pfeiffer, 1864
+
+Cited in http://dx.doi.org/10.3897/zookeys.194.2721
 
 
 
