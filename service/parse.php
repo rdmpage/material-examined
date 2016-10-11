@@ -264,7 +264,7 @@ $patterns = array(
 	'/^(?<institutionCode>WAM)\s+(?<catalogNumber>\d+(\-\d+)?)$/',	
 	
 	// WAM T111382
-	'/^(?<institutionCode>WAM)\s+[A-Z](?<catalogNumber>\d+)$/',	
+	'/^(?<institutionCode>WAM)(\s+|:)[A-Z](?<catalogNumber>\d+)$/',	
 	
 	// WAM P.30850-030
 	'/^(?<institutionCode>WAM)\s+(?<catalogNumber>[A-Z]\.?\d+(-\d+)?)$/',
