@@ -270,7 +270,11 @@ http://data.nhm.ac.uk/specimen/492908bd-7e8f-433d-a1b9-067ca5ae8fd4
 
 Cited in http://dx.doi.org/10.3897/zookeys.194.2721
 
+### WAM:T63108
 
+GBIF http://gbif.org/occurrence/500819095
+OZCAM 1ef3cc48-c2ea-41bf-ab95-0bd6dbef748c
+GenBank https://www.ncbi.nlm.nih.gov/nuccore/JF749966
 
 
 
