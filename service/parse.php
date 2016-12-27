@@ -982,6 +982,24 @@ function parse($verbatim_code, $extend = 10)
 					}
 					break;	
 					
+				case 'INPA':
+				
+					// fish
+					$parameters = array();
+					$parameters['institutionCode'] =  'Instituto Nacional de Pesquisas da Amazônia (INPA)';
+					
+					$parameters['catalogNumber'] =  'INPA-ICT ' . str_pad($result->catalogNumber, 6,'0', STR_PAD_LEFT);
+					$result->parameters[] = $parameters;					
+					
+					
+				
+					// default
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;					
+					break;
+					
 				//------------------------------------------------------------------------
 				case 'K':
 					if (is_numeric($result->catalogNumber))
@@ -1209,6 +1227,21 @@ function parse($verbatim_code, $extend = 10)
 						$result->parameters[] = $parameters;
 					}
 					break;
+					
+				// MNRJ
+				case 'MNRJ':
+					$parameters = array();
+					$parameters['institutionCode'] = 'Museu Nacional/UFRJ';
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;									
+				
+					// default
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;									
+					break;
+					
 					
 				// MPEG
 				case 'MPEG':
