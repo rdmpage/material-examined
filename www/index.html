@@ -175,7 +175,21 @@
 					   
 					   var map = '';
 					   if (data.hits[i].decimalLatitude) {
-					     var map = '<img src="http://maps.googleapis.com/maps/api/staticmap?zoom=4&size=100x100&maptype=terrain&markers=' + data.hits[i].decimalLatitude + ',' + data.hits[i].decimalLongitude + '&sensor=false" />' + '</td>';
+					     //var map = '<img src="http://maps.googleapis.com/maps/api/staticmap?zoom=4&size=100x100&maptype=terrain&markers=' + data.hits[i].decimalLatitude + ',' + data.hits[i].decimalLongitude + '&sensor=false" />' + '</td>';
+					     
+					     
+					     	var url = 'https://api.mapbox.com/v4/mapbox.streets';
+							  var marker = '/pin-s-circle+285A98(' + + data.hits[i].decimalLongitude + ',' + data.hits[i].decimalLatitude + ')';
+							  var pt = '/' + data.hits[i].decimalLongitude + ',' + data.hits[i].decimalLatitude;
+							  var zoom = ',2';
+							  var size = '/100x100.png';
+							  var token='?access_token=pk.eyJ1IjoicmRtcGFnZSIsImEiOiJjajJrdmJzbW8wMDAxMnduejJvcmEza2k4In0.bpLlN9O6DylOJyACE8IteA';
+		
+							  var map = '<img src="' + url + marker + pt + zoom + size + token + '">';
+
+
+					
+					
 					
 					   }
 					   html += '<td>' + map + '</td>';
