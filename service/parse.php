@@ -93,7 +93,10 @@ $patterns = array(
 	
 	// BM(NH) 1981.5.26: 11-14 not a range
 	'/^(?<institutionCode>BM\(NH\))\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+:\s*(\d+)+(-\d+)?)$/',
-
+	
+	// BM (NH) 1938:5:7: 89–91 not a range
+	'/^(?<institutionCode>BM\s+\(NH\))\s+(?<catalogNumber>[0-9]{1,4}(:\d+)+:\s*(\d+)+([–|-]\d+)?)$/u',
+	
 
 	// BMNH (E) 1009503
 	'/^(?<institutionCode>BMNH\s*\(E\))\s*(?<catalogNumber>\d+)$/',
@@ -180,6 +183,10 @@ $patterns = array(
 	// NHM-UK 1956.60.9
 	'/^(?<institutionCode>NHM[-]?UK)(:|\s*)(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
 	
+	// NHMUK 1896.1.25.7-8
+	'/^(?<institutionCode>NHMUK)(:|\s*)(?<catalogNumber>[0-9]{1,4}(\.\d+)+(-\d+)?)$/',
+	
+	
 	
 	// NHM:BMNH20100253
 	'/^NHM:(?<institutionCode>BMNH)(?<catalogNumber>\d+)$/',
@@ -238,11 +245,17 @@ $patterns = array(
 	// ROM MAM 107505
 	'/^(?<institutionCode>ROM)\s+(?<collectionCode>[A-Z]+)\s+(?<catalogNumber>.*)$/',
 	
+	// SAM NN24373
+	'/^(?<institutionCode>SAM)\s+(?<catalogNumber>[A-Z]{1,2}\d+)$/',
+	
 	// SAMA:B23004
 	'/^(?<institutionCode>SAMA)[:](?<catalogNumber>[B]\d+)$/',
 	
 	// TM<ZAF>:84805
 	'/^(?<institutionCode>TM)<(?<collectionCode>ZAF)>[:]?(?<catalogNumber>\d+)$/',
+
+	// TTU-Z030022
+	'/^(?<institutionCode>TTU)-(?<catalogNumber>Z\d+)$/',
 
 	// UCMVZ 157675
 	'/^UC(?<institutionCode>MVZ)\s+(?<catalogNumber>\d+)$/',
@@ -282,6 +295,11 @@ $patterns = array(
 	
 	// YPM-IZ.043791
 	'/^(?<institutionCode>YPM)-(?<collectionCode>[A-Z]+)\.(?<catalogNumber>.*)$/',
+	
+
+	// ZMB/Moll 60914
+	'/^(?<institutionCode>ZMB\/Moll)\s+(?<catalogNumber>\d+)$/',
+	
 	
 	// ZMUC AVES-095264
 	'/^(?<institutionCode>ZMUC)\s+(?<catalogNumber>[A-Z]+-\d+)$/',
@@ -383,7 +401,8 @@ function parse($verbatim_code, $extend = 10)
 	// Match
 	foreach ($patterns as $pattern)
 	{
-		//echo $pattern . "\n";
+		//echo $pattern . "<br/>";
+		
 		if (!$result->parsed)
 		{
 			if (preg_match($pattern, $result->text, $m))
@@ -670,11 +689,13 @@ function parse($verbatim_code, $extend = 10)
 				case 'BM':
 				case 'BM(NH)':
 				case 'BMNH':
+				case 'BM (NH)':
 					$parameters = array();
 					$parameters['institutionCode'] = 'NHMUK';
 					
 					$catalogNumber = $result->catalogNumber;
-					$catalogNumber = preg_replace('/:\s+/', '.', $catalogNumber);
+					$catalogNumber = preg_replace('/:\s*/', '.', $catalogNumber);
+					$catalogNumber = preg_replace('/–/u', '-', $catalogNumber);
 					
 					$parameters['catalogNumber'] = $catalogNumber;
 					$result->parameters[] = $parameters;
@@ -1766,7 +1787,7 @@ function parse($verbatim_code, $extend = 10)
 					$matched = false;
 					if (!$matched)
 					{
-						if (preg_match('/^[M|R]\d+/', $result->catalogNumber, $m))
+						if (preg_match('/^[A-Z]+\d+/', $result->catalogNumber, $m))
 						{
 							$matched = true;
 							$parameters = array();
@@ -1834,6 +1855,24 @@ function parse($verbatim_code, $extend = 10)
 					}
 					$result->parameters[] = $parameters;
 					break;	
+					
+			
+				//------------------------------------------------------------------------
+				// TTU 
+				case 'TTU':
+					$parameters = array();
+					$parameters['institutionID'] = $result->institutionCode;
+					$parameters['catalogNumber'] = 'TTU-' . str_replace('Z', 'Z_', $result->catalogNumber);
+					$result->parameters[] = $parameters;			
+					
+					// default
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;
+				
+					
 					
 				/*
 				//------------------------------------------------------------------------
