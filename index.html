@@ -1,11 +1,311 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="utf-8" />
-	<meta http-equiv="REFRESH" content="0;url=www">
-	<title>Untitled</title>
+	<title>Material Examined</title>	
+	
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
+    
+
+
+   <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
+	<script src="https://cdn.jsdelivr.net/npm/ejs@2.6.1/ejs.min.js" integrity="sha256-ZS2YSpipWLkQ1/no+uTJmGexwpda/op53QxO/UBJw4I=" crossorigin="anonymous"></script>	
+
+	<!-- <script src="js/jquery-1.11.2.min.js"></script> -->
+	<!-- <script src="js/ejs.js"></script> -->
+
+	<script>
+	
+        //--------------------------------------------------------------------------------
+		var template_results = `
+			<div>
+				<table>
+					<tbody>
+						<tr>
+							<th>Specimen</th>
+							<th>Higher taxon</th>
+							<th>Scientific name</th>
+							<th>Type status</th>
+							<th>Map</th>
+							<th>Images</th>
+							<th>GenBank</th>
+							
+						</tr>
+				
+				<% 
+				var n = data.hits.length;
+				for (var i = 0; i < n; i++) { %>
+					<tr>
+						<td>
+						
+							<a href="https://www.gbif.org/occurrence/<%= data.hits[i].key %>" target="_new">GBIF:<%= data.hits[i].key %></a>
+
+						
+							<%
+							var code = '';
+
+							if (data.hits[i].institutionCode) {
+								code = data.hits[i].institutionCode;
+							}
+							if (data.hits[i].catalogNumber) {
+								code += '&nbsp;' + data.hits[i].catalogNumber.replace(/\s/g, '&nbsp;');
+							}
+							
+							%>
+							
+							<br /><span style="font-size:12px;color:green;"><%-  code  %></span>
+							
+							<%
+							if (data.hits[i].occurrenceID) {
+								var handled = false;
+								var occurrenceUrl = '';
+								var occurrenceID = '';
+								
+								if (!handled) {
+									if (data.hits[i].institutionCode == 'NHMUK') {
+										occurrenceUrl = 'https://data.nhm.ac.uk/object/' + data.hits[i].occurrenceID;
+										occurrenceID = data.hits[i].occurrenceID;
+										handled = true;
+									}
+								}
+								
+								if (!handled) {
+									if (data.hits[i].occurrenceID.match(/^http/)) {
+										occurrenceUrl = data.hits[i].occurrenceID;
+										occurrenceID = data.hits[i].occurrenceID;
+										handled = true;
+									}
+								}
+
+								// USNM verts
+								if (!handled) {
+									if (data.hits[i].datasetKey == '5df38344-b821-49c2-8174-cf0f29f4df0d') {
+										var verts=['Mammalia', 'Aves', 'Amphibia', 'Elasmobranchii', 'Reptilia', 'Actinopterygii'];
+										if (verts.indexOf(data.hits[i].class) != -1) {
+											 var parts = data.hits[i].occurrenceID.split('.');
+											 occurrenceUrl = 'http://collections.si.edu/search/results.htm?q=record_ID:nmnhvz_' + parts[1];
+										     occurrenceID = data.hits[i].occurrenceID;
+											 handled = true;
+										}
+									}
+								}
+								
+													       
+					    		if (!handled) {
+					       			occurrenceID = data.hits[i].occurrenceID;
+					     		}
+					     		
+					     		if (handled) { %>
+					     			<br /><a href="<%= occurrenceUrl %>" target="_new"><%= occurrenceID %></a>					     		
+					     		<% }
+							}
+						%>
+	
+						</td>
+						
+						<%
+						// higher taxon
+					   var klass = '';
+					   if (data.hits[i].class) {
+					     klass = data.hits[i].class;
+					   }
+					   %>
+
+						<td>
+							<img style="opacity:0.5;vertical-align:middle" height="48" src="image.php?name=<%= klass %>" >
+							<%= klass %>
+						</td>
+
+						<td>
+							<%= data.hits[i].scientificName %>
+						</td>
+
+						<td>
+						<%
+					     
+						   var typeStatus = '';
+						   if (data.hits[i].typeStatus) {
+							 typeStatus = data.hits[i].typeStatus;
+						   } %>
+						   <%= typeStatus %>						
+						
+						</td>
+
+						<td>
+							<% if (data.hits[i].decimalLatitude) {
+					     	  var url = 'https://api.mapbox.com/v4/mapbox.streets';
+							  var marker = '/pin-s-circle+285A98(' + + data.hits[i].decimalLongitude + ',' + data.hits[i].decimalLatitude + ')';
+							  var pt = '/' + data.hits[i].decimalLongitude + ',' + data.hits[i].decimalLatitude;
+							  var zoom = ',2';
+							  var size = '/100x100.png';
+							  var token='?access_token=pk.eyJ1IjoicmRtcGFnZSIsImEiOiJjajJrdmJzbW8wMDAxMnduejJvcmEza2k4In0.bpLlN9O6DylOJyACE8IteA';
+							  
+							  var map = url + marker + pt + zoom + size + token;
+							%>
+							  <img src="<%- map %>">
+							<% } %>
+						
+						</td>
+						
+						<td>
+							<div>
+							<% var media = [];
+					   
+					   
+						   for (var j in data.hits[i].media) {
+							  if (data.hits[i].media[j].type) {
+								 if (data.hits[i].media[j].type == "StillImage") {
+									if (data.hits[i].media[j].description == "thumbnail") {
+									   media.push(data.hits[i].media[j].identifier);
+									} else {
+									  media.push(data.hits[i].media[j].identifier);
+									}
+								 }
+							  }
+							}
+							
+							var m = media.length;
+							for (var j=0; j < m; j++) { %>
+								<img style="padding:4px;float:left;" src="http://exeg5le.cloudimg.io/s/height/64/<%= media[j] %>" >								
+							<% } %>
+							
+							
+						
+						
+							</div>
+						</td>
+						
+						
+						<td>
+						<%
+					   
+					   var genbank_list = [];
+					   if (data.hits[i].associatedSequences) {
+					   	 var genbank = data.hits[i].associatedSequences;
+					   	 genbank = genbank.replace(/Genbank:/, '');
+					   	 genbank = genbank.replace(/https?:\\/\\/www.ncbi.nlm.nih.gov\\/nuccore\\//g, '');
+					   	 genbank = genbank.replace(/https?:\\/\\/www.ncbi.nlm.nih.gov\\/gquery\\?term=/g, '');
+					   	 genbank = genbank.replace(/\s*;\s*/g, '|');
+					   	 genbank_list = genbank.split('|');
+					   }	
+					   
+					     var ng = genbank_list.length;
+					     for (var j = 0 ; j < ng; j++) { %>
+					     	<a href="https://www.ncbi.nlm.nih.gov/nuccore/<%= genbank_list[j] %>" target="_new"><%= genbank_list[j] %></a>
+					    <%  } %>
+						
+						
+						</td>
+						
+					</tr>
+					
+				<% } %>	
+					</tbody>
+				</table>
+			</div>
+			`;
+	
+        //--------------------------------------------------------------------------------
+		// http://stackoverflow.com/a/11407464
+		$(document).keypress(function(event){		
+			var keycode = (event.keyCode ? event.keyCode : event.which);			
+			if(keycode == '13'){
+				search();   
+			}
+		});    
+    
+        //--------------------------------------------------------------------------------
+		//http://stackoverflow.com/a/25359264
+		$.urlParam = function(name){
+			var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			if (results==null){
+			   return null;
+			}
+			else{
+			   return results[1] || 0;
+			}
+		}        
+		
+        //--------------------------------------------------------------------------------
+		function search() {      
+      		document.activeElement.blur();
+      		
+      		document.getElementById('results').innerHTML = '';
+      
+			var q = document.getElementById('query').value;
+						
+		$.getJSON('service/api.php?code=' 
+				+ encodeURI(q)
+				+ '&match&extend=10'
+				+ '&callback=?',
+			function(data){
+			
+				console.log(JSON.stringify(data, null, 2));
+				
+				html = ejs.render(template_results, { data: data });
+				document.getElementById('results').innerHTML = html;
+
+			}
+		);  			
+
+
+		}		
+		
+		
+	
+	
+	</script>
+	
+  <script type="text/javascript">
+//<![CDATA[
+
+    window.onload=function(){
+    }
+
+//]]></script>
+	
+	
 </head>
 <body>
+	<div class="container"> 
+	<!-- <div> -->
+
+	<!-- search box -->
+	<div class="row">
+		<div class="input-field col s12">
+			<i class="material-icons prefix">search</i>
+			<input style="font-size:2em;" type="text" id="query"  placeholder="Search">
+		</div>
+		<!-- <button class="btn-large type="submit" style="font-size:2em;" id="search" onclick="search();">Find</button> -->
+	</div>
+	
+	<div id="results">
+	</div>
+	
+	<div id="output">
+	</div>
+	
+	</div>
+  
+  <script>
+  		// do we have a URL parameter?
+		var query = $.urlParam('q');
+		if (query) {
+		   query = decodeURIComponent(query);
+		   $('#query').val(query); 
+		   search();
+		}
+  </script>
+  
+
 
 </body>
 </html>
+

@@ -46,7 +46,7 @@ class GBIFOccurrenceService extends ReconciliationService
 	// Handle an individual query
 	function OneQuery($query_key, $text, $limit = 1, $properties = null)
 	{
-		$url = 'http://localhost/~rpage/material-examined-o/service/api.php?code=' . urlencode($text) . '&match';
+		$url = 'http://localhost/~rpage/material-examined/service/api.php?code=' . urlencode($text) . '&match';
 	
 		$json = get($url);
 		

@@ -19,7 +19,7 @@ function search ($specimen, $scientificName = '')
 	{
 		foreach ($specimen->parameters as $parameters)
 		{
-			$url = 'http://api.gbif.org/v1/occurrence/search?';
+			$url = 'https://api.gbif.org/v1/occurrence/search?';
 						
 			if ($scientificName != '')
 			{
@@ -30,6 +30,8 @@ function search ($specimen, $scientificName = '')
 			{
 				$url .= $k . '=' . urlencode($v) . '&';
 			}
+			
+			// echo $url . "\n";			
 			
 			$json = get($url);
 			
