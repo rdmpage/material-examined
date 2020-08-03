@@ -86,13 +86,13 @@ $patterns = array(
 	'/^(?<institutionCode>BMNH)\s*reg.\s*no.\s*(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
 	
 	// BMNH No. 1997.7.7
-	'/^(?<institutionCode>BMNH)\s*[N|n]o.\s*(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
+	'/^(?<institutionCode>BMNH)\s*[N|n]o.\s*(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/u',
 
 	// BMNH 2005.8.9.105-106 (not a range FFS)
-	'/^(?<institutionCode>BMNH)\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+(-\d+))$/',
+	'/^(?<institutionCode>BMNH)\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+([-|–]\d+))$/u',
 	
 	// BM(NH) 1981.5.26: 11-14 not a range
-	'/^(?<institutionCode>BM\(NH\))\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+:\s*(\d+)+(-\d+)?)$/',
+	'/^(?<institutionCode>BM\(NH\))\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+:\s*(\d+)+([-|–]\d+)?)$/u',
 	
 	// BM (NH) 1938:5:7: 89–91 not a range
 	'/^(?<institutionCode>BM\s+\(NH\))\s+(?<catalogNumber>[0-9]{1,4}(:\d+)+:\s*(\d+)+([–|-]\d+)?)$/u',
