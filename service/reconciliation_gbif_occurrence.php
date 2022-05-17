@@ -2,6 +2,8 @@
 
 // Match specimen codes to GBIF occurrences
 
+error_reporting(E_ALL);
+
 require_once (dirname(__FILE__) . '/reconciliation_api.php');
 require_once (dirname(__FILE__) . '/parse.php');
 require_once (dirname(__FILE__) . '/gbif.php');

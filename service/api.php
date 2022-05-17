@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ALL);
+
 require_once (dirname(__FILE__) . '/lib.php');
 require_once (dirname(__FILE__) . '/api_utils.php');
 require_once (dirname(__FILE__) . '/parse.php');

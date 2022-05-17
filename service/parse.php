@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ALL);
+
 // Parse specimen codes
 
 require_once(dirname(__FILE__) . '/lib.php');
@@ -1238,7 +1240,7 @@ function parse($verbatim_code, $extend = 10)
 					$matched = false;
 					if (!$matched)
 					{
-						if (($result->collectionCode == 'IM') && is_numeric($result->catalogNumber))
+						if (isset($result->collectionCode) && ($result->collectionCode == 'IM') && is_numeric($result->catalogNumber))
 						{
 							if (preg_match('/^(?<one>[0-9]{4})(?<two>\d+)$/', $result->catalogNumber, $m))
 							{
