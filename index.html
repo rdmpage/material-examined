@@ -179,7 +179,7 @@
 							
 							var m = media.length;
 							for (var j=0; j < m; j++) { %>
-								<img style="padding:4px;float:left;" src="http://exeg5le.cloudimg.io/s/height/64/<%= media[j] %>" >								
+								<img style="padding:4px;float:left;" src="https://aipbvczbup.cloudimg.io/s/height/64/<%= media[j] %>" >								
 							<% } %>
 							
 							
@@ -290,6 +290,26 @@
 			<input style="font-size:2em;" type="text" id="query"  placeholder="Search">
 		</div>
 		<!-- <button class="btn-large type="submit" style="font-size:2em;" id="search" onclick="search();">Find</button> -->
+	</div>
+	
+	<div>
+		<p>
+		<a href="./">Material examined</a> is a simple tool by <a href="https://twitter.com/rdmpage">Rod Page</a> to find specimens in 
+		<a href="https://www.gbif.org">GBIF</a> based on the specimen code. For example,
+		<a href="?q=MNHN 2003-1054">MNHN 2003-1054</a>, <a href="?q=BMNH 1891.6.13.25">BMNH 1891.6.13.25</a>,
+		<a href="?q=KU 3581">KU 3581</a>, and <a href="?q=BM000944668">BM000944668</a>. If found the tool displays
+		available information on that specimen, including a map, images, and links to Genbank sequences.</p> 
+		
+		<p>The tool makes use
+		of the GBIF API and (lots of) regular expressions. Source code is available on <a href="https://github.com/rdmpage/material-examined">GitHub</a>
+		where you can also leave <a href="https://github.com/rdmpage/material-examined/issues">feedback</a>, or you can reach out on Twitter (<a href="https://twitter.com/rdmpage">@rdmpage</a>)
+		Note that there may be more than one specimen with the same code (e.g., <a href="?q=KU 3581">KU 3581</a> 
+		or <a href="?q=CNMA 22439">CNMA 22439</a>),
+		this is because individual collections in the same institution often have the same numbering scheme. 
+		The tool is biased towards animals which tend to have distinctive specimen codes, however a growing number of
+		herbaria are adopting standardised codes, such as <a href="?q=BM000944668">BM000944668</a></p>
+		
+		
 	</div>
 	
 	<div id="results">
