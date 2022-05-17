@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" /> 
+		
+		<!--Import Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+		  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+		  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
+		  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
+	
+	   <!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
+		<script src="https://cdn.jsdelivr.net/npm/ejs@2.6.1/ejs.min.js" integrity="sha256-ZS2YSpipWLkQ1/no+uTJmGexwpda/op53QxO/UBJw4I=" crossorigin="anonymous"></script>	
+		
+				
+		<title>
+			Match references 
+		</title>
+	
+		
+	
+	<script>
+
+		
+		function reconcile_many() {
+			var string = $('#multiple').val();
+			
+			string = string.replace(/\s+$/, '');
+			string = string.replace(/\t/g, '');
+			
+			var rows = string.split("\n");
+			
+			var query = {};
+			
+			var html = '';
+			html += '<table>';
+			html += '<tr><th>Query</th><th>Matched</th></tr>';
+			
+			for (var i in rows) {
+				var key = 'q' + i;
+				query[key] = {};
+				
+				var text = rows[i];
+				text = text.replace(/:/g, '');
+				text = text.replace(/"/g, '');
+				
+				query[key].query = text;
+				query[key].limit = 3;
+				
+				html += '<tr>';
+				
+				html += '<td id="' + key + '" width="50%">' + rows[i] + '</td>';
+				html += '<td id="' + key + '_hit"></td>';
+				//html += '<td id="' + key + '_score"></td>';
+
+				html += '</tr>';
+			}
+			
+			html += '</table>';
+			
+			$('#results').html(html);
+			
+			$('#json_query').text(JSON.stringify(query, null, 2));
+			$('#json_result').text('working...');
+			
+				
+			var url = 'service/reconciliation_gbif_occurrence.php?queries='	
+			  + encodeURIComponent(JSON.stringify(query)) + '&callback?';
+
+				$.getJSON(url + encodeURIComponent(url),				
+				
+				function(data) {
+					$('#json_result').text(JSON.stringify(data,null,2));
+				
+									
+					for (var i in data) {
+						if (data[i].result) {
+							
+							var hit_html = '';
+							
+					   		for (var j in data[i].result) {
+					   			hit_html += '<a href="https://www.gbif.org/occurrence/' + data[i].result[j].id + '">'; 
+					   		    hit_html += data[i].result[j].name;
+					   		    hit_html += '</a>';
+					   		    hit_html += '<br/>';
+					   		}
+					   		$('#' + i + '_hit').html(hit_html);
+					   		
+					   } else {
+					   	// not found
+					   	$('#' + i + '_hit').html('-');
+						}
+					}
+				}
+			);
+			
+			
+		
+		
+		}
+		
+	
+	
+	</script>
+</head>
+<body>
+	<header></header>
+	<main>
+		<div class="container">
+			<div class="row">
+
+	<h3>Match specimen codes</h3>
+	<p>Tool to explore the <a href="service/reconciliation_gbif_occurrence.php">reconciliation service</a>. This service is based on the Freebase 
+	reconciliation service used by tools such as <a href="https://openrefine.org">OpenRefine</a>, see <a href="https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API">Reconciliation Service API</a>.
+	To use this tool, paste specimen codes, one per line into the box below, click "Match" and 
+	the service will attempt to match those codes to records in GBIF.</p>
+	
+	<!--
+	<div>
+		<h2>Single query</h2>
+		<input type="text" id="query" value="Romero et al. 2009. The hypogean fihes of China. Environmental Biology of Fishes 86:211-278" placeholder="string" style="width:80%;font-size:1.5em;">
+		<button onclick="reconcile_one();"></button>	
+		
+		<div id="result"></div>
+	</div>
+	-->
+	
+	<div>
+		<div class="input-field col s12">
+		
+		<textarea  class="materialize-textarea" id="multiple" rows="10" style="width:100%;font-size:1em;">
+MNHN 2003-1054
+BMNH 1891.6.13.25
+KU 3581
+BM000944668
+		</textarea>
+		   <label for="multiple">Enter specimen codes, one per line</label>
+        </div>
+		
+		<button style="font-size:1.5em;" onclick="reconcile_many();">Match</button>	
+		<hr />
+		<div>
+			<div id="json_query" style="background:rgb(64,64,64);color:rgb(200,200,200);width:48%;float:left;font-size:12px;height:200px;overflow:auto;white-space:pre;border: 1px solid rgb(192,192,192)"></div>
+		
+			<div id="json_result" style="background:rgb(64,64,64);color:rgb(200,200,200);width:48%;float:right;font-size:12px;height:200px;overflow:auto;white-space:pre;border: 1px solid rgb(192,192,192)"></div>
+		</div>
+		<div style="clear:both;"></div>
+		<div id="results"></div>
+	
+	</div>
+	
+		
+
+		</div>
+		</div>
+	</main>
+	
+		<footer >
+			<div class="container">
+            	<div class="row">
+            	<div class="divider"></div>
+            		<a href=".">Material Examined</a> is a project by <a href="https://twitter.com/rdmpage">Rod Page</a> 
+            		to provide a search engine for specimen codes in GBIF.</a>. 
+            	</div>
+            </div>
+		</footer>
+	
+	
+</body>
+</html>

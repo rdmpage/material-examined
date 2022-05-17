@@ -3,6 +3,8 @@
 // Match specimen codes to GBIF occurrences
 
 require_once (dirname(__FILE__) . '/reconciliation_api.php');
+require_once (dirname(__FILE__) . '/parse.php');
+require_once (dirname(__FILE__) . '/gbif.php');
 
 
 //--------------------------------------------------------------------------------------------------
@@ -46,19 +48,16 @@ class GBIFOccurrenceService extends ReconciliationService
 	// Handle an individual query
 	function OneQuery($query_key, $text, $limit = 1, $properties = null)
 	{
-		$url = 'http://localhost/~rpage/material-examined/service/api.php?code=' . urlencode($text) . '&match';
-	
-		$json = get($url);
+		$obj = parse($text);
 		
-		if ($json != '')
+		if ($obj->parsed)
 		{
-			$obj = json_decode($json);
-			
+			$obj->hits = search($obj);
 			foreach ($obj->hits as $occurrence)
 			{
 				$hit = new stdclass;
 				$hit->id 	= $occurrence->key;
-				$hit->name 	= $occurrence->institutionCode . ' ' . $occurrence->catalogNumber . '(' . $occurrence->scientificName . ')';
+				$hit->name 	= $occurrence->institutionCode . ' ' . $occurrence->catalogNumber . ' ' . $occurrence->scientificName;
 				//similar_text($text, $hit->name, $hit->score);
 				//$hit->match = ($hit->score == 1);
 				$hit->match = true;
