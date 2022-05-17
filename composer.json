@@ -1,0 +1,10 @@
+{
+  "name": "rpage/material-examined",
+  "authors": [{
+    "name": "Roderic Page",
+    "email": "rdmpage@gmail.com"
+  }],
+  "require": {
+    "ext-mbstring": "*"
+  }
+}
