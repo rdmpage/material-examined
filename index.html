@@ -137,19 +137,25 @@
 						   <%= typeStatus %>						
 						
 						</td>
-
 						<td>
 							<% if (data.hits[i].decimalLatitude) {
-					     	  var url = 'https://api.mapbox.com/v4/mapbox.streets';
+							  var link = 'https://www.openstreetmap.org/?mlat=' 
+							  	+ data.hits[i].decimalLatitude
+							  	+ '&mlon=' + data.hits[i].decimalLongitude
+							  	+ '&zoom=8';
+							
+					     	  var url = 'https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static';
 							  var marker = '/pin-s-circle+285A98(' + + data.hits[i].decimalLongitude + ',' + data.hits[i].decimalLatitude + ')';
 							  var pt = '/' + data.hits[i].decimalLongitude + ',' + data.hits[i].decimalLatitude;
-							  var zoom = ',2';
-							  var size = '/100x100.png';
+							  var zoom = ',4';
+							  var size = '/100x100';
 							  var token='?access_token=pk.eyJ1IjoicmRtcGFnZSIsImEiOiJjajJrdmJzbW8wMDAxMnduejJvcmEza2k4In0.bpLlN9O6DylOJyACE8IteA';
 							  
 							  var map = url + marker + pt + zoom + size + token;
 							%>
+							  <a href="<%- link %>" target="_new">
 							  <img src="<%- map %>">
+							  </a>
 							<% } %>
 						
 						</td>
@@ -237,8 +243,8 @@
 		function search() {      
       		document.activeElement.blur();
       		
-      		document.getElementById('results').innerHTML = '';
-      
+      		document.getElementById('results').innerHTML = '<progress></progress>';
+      		
 			var q = document.getElementById('query').value;
 						
 		$.getJSON('service/api.php?code=' 

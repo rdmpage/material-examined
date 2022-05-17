@@ -13,11 +13,11 @@ class GBIFOccurrenceService extends ReconciliationService
 	{
 		$this->name 			= 'GBIF Occurences';
 		
-		$this->identifierSpace 	= 'http://gbif.org/';
+		$this->identifierSpace 	= 'https://www.gbif.org/';
 		$this->schemaSpace 		= 'http://rdf.freebase.com/ns/type.object.id';
 		$this->Types();
 		
-		$view_url = 'http://gbif.org/occurrence/{{id}}';
+		$view_url = 'https://www.gbif.org/occurrence/{{id}}';
 
 		$preview_url = '';	
 		$width = 430;
@@ -37,8 +37,8 @@ class GBIFOccurrenceService extends ReconciliationService
 	function Types()
 	{
 		$type = new stdclass;
-		$type->id = '/common/topic';
-		$type->name = 'Freebase topic';
+		$type->id = 'http://rs.tdwg.org/dwc/terms/Occurrence';
+		$type->name = 'Occurrence';
 		$this->defaultTypes[] = $type;
 	} 	
 		

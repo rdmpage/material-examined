@@ -265,6 +265,9 @@ $patterns = array(
 	
 	// USNM ENT 00907308
 	'/^(?<institutionCode>USNM)\s*(?<collectionCode>ENT)\s+[0]*(?<catalogNumber>.*)$/',
+
+	// USNMENT00802038
+	'/^(?<institutionCode>USNM)(?<collectionCode>ENT)[0]*(?<catalogNumber>.*)$/',
 	
 	// UTA A51496
 	'/^(?<institutionCode>UTA)\s+(?<catalogNumber>[A-Z]\d+)$/',

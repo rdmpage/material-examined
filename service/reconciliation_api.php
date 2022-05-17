@@ -68,7 +68,7 @@ class ReconciliationService
 	//----------------------------------------------------------------------------------------------
 	function Metadata($callback = '')
 	{
-		header ("Content-type: text/plain\n\n");
+		header ("Content-type: application/json");
 		if ($callback != '')
 		{
 			echo $callback . '(';
@@ -169,7 +169,7 @@ class ReconciliationService
 			file_put_contents('tmp/r.txt', "Return: \n" . print_r($this->result, true), FILE_APPEND);
 		}			
 				
-		header ("Content-type: text/plain\n\n");
+		header ("Content-type: application/json");
 		if ($callback != '')
 		{
 			echo $callback . '(';
