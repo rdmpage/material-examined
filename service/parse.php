@@ -1962,7 +1962,7 @@ function parse($verbatim_code, $extend = 10)
 				//------------------------------------------------------------------------
 				case 'USNM':
 					$matched = false;
-					if ($result->collectionCode == 'ENT')
+					if (isset($result->collectionCode) && $result->collectionCode == 'ENT')
 					{
 						$catalog_number = 'USNMENT' . $result->catalogNumber;
 						
