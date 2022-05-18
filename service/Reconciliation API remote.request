@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>baseURL</key>
-	<string>http://localhost/~rpage/material-examined/service/reconciliation_gbif_occurrence.php</string>
+	<string>https://material-examined.herokuapp.com/service/reconciliation_gbif_occurrence.php</string>
 	<key>followRedirect</key>
 	<true/>
 	<key>handleJSONPCallbacks</key>

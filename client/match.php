@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ALL);
+
 require_once(dirname(dirname(__FILE__)) . '/service/lib.php');
 
 // Read a file of specimen codes, one per line, and reconcile
@@ -14,19 +16,22 @@ while (!feof($file_handle))
 	
 	$code = $line;
 	
-	$url = 'http://localhost/~rpage/material-examined-o/service/api.php?code=' . urlencode($code) . '&match';
+	$url = 'http://localhost/~rpage/material-examined/service/api.php?code=' . urlencode($code) . '&match';
 	
 	$json = get($url);
-	
+		
 	$hits = array();
 	
 	if ($json != '')
 	{
 		$obj = json_decode($json);
 		
-		foreach ($obj->hits as $occurrence)
-		{
-			$hits[] = $occurrence->key;
+		if (isset($obj->hits))
+		{		
+			foreach ($obj->hits as $occurrence)
+			{
+				$hits[] = $occurrence->key;
+			}
 		}
 	}
 	
