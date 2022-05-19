@@ -172,6 +172,9 @@ $patterns = array(
 	// MNHN:IM:20098733
 	'/^(?<institutionCode>MNHN):(?<collectionCode>[A-Z]+):(?<catalogNumber>.*)$/',
 	
+	// MNHN IC.1986-0015
+	'/^(?<institutionCode>MNHN)\s+(?<collectionCode>[A-Z]+)\.(?<catalogNumber>.*)$/',
+	
 	// MVZ Herp 228860
 	'/^(?<institutionCode>MVZ) (?<collectionCode>\w+) (?<catalogNumber>\d+)$/',
 	
@@ -252,6 +255,9 @@ $patterns = array(
 	
 	// SAMA:B23004
 	'/^(?<institutionCode>SAMA)[:](?<catalogNumber>[B]\d+)$/',
+	
+	// S07-4318
+	'/^(?<catalogNumber>(?<institutionCode>S)\d+-\d+)$/',
 	
 	// TM<ZAF>:84805
 	'/^(?<institutionCode>TM)<(?<collectionCode>ZAF)>[:]?(?<catalogNumber>\d+)$/',
@@ -951,18 +957,12 @@ function parse($verbatim_code, $extend = 10)
 				//------------------------------------------------------------------------
 				case 'CNMA':
 				case 'CNM':
-					{
-						$parameters = array();
-						$parameters['institutionCode'] = 'IBUNAM';
-						$parameters['catalogNumber'] = $result->catalogNumber;
-						$result->parameters[] = $parameters;						
-					}
-					{
-						$parameters = array();
-						$parameters['institutionCode'] = $result->institutionCode;
-						$parameters['catalogNumber'] = $result->catalogNumber;
-						$result->parameters[] = $parameters;
-					}
+				case 'CNCR':
+					$parameters = array();
+					$parameters['collectionCode'] = $result->institutionCode;
+					$parameters['institutionCode'] = 'IBUNAM';
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;						
 					break;				
 					
 				//------------------------------------------------------------------------
@@ -1169,9 +1169,6 @@ function parse($verbatim_code, $extend = 10)
 					$result->parameters[] = $parameters;
 					break;
 					
-					
-					
-
 				//------------------------------------------------------------------------
 				case 'MCZ':
 					$matched = false;
@@ -1212,6 +1209,16 @@ function parse($verbatim_code, $extend = 10)
 					}
 					break;
 					
+				//------------------------------------------------------------------------
+				case 'MEXU':
+				case 'MEXUBR':
+					$parameters = array();
+					$parameters['collectionCode'] = $result->institutionCode;
+					$parameters['institutionCode'] = 'IBUNAM';
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;						
+					break;				
+										
 				//------------------------------------------------------------------------
 				case 'MHNG':
 					$matched = false;
@@ -1957,7 +1964,23 @@ function parse($verbatim_code, $extend = 10)
 						
 
 					}
-					break;					
+					break;	
+					
+				//------------------------------------------------------------------------
+				case 'US':
+					if (!preg_match('/^US/', $result->catalogNumber))
+					{						
+						$parameters = array();
+						$parameters['institutionCode'] = $result->institutionCode;
+						$parameters['catalogNumber'] = 'US ' . $result->catalogNumber;
+						$result->parameters[] = $parameters;
+					}				
+					// default
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;										
+					break;				
 					
 				//------------------------------------------------------------------------
 				case 'USNM':
