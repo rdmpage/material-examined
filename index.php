@@ -312,7 +312,9 @@
 		herbaria are adopting standardised codes, such as <a href="?q=BM000944668">BM000944668</a>.</p>
 		
 		<p>There is a reconciliation API <a href="./match.html">here</a>. 
-		You can also call a simple search API directly at <a href="service/api.php">service/api.php</a></p>
+		You can also call a simple search API directly at <a href="service/api.php">service/api.php</a>.</p>
+		
+		<p>The code is on GitHub, where you can also <a href="https://github.com/rdmpage/material-examined/issues" target="_new">report problems</a>.
 		
 		
 	</div>

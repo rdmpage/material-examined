@@ -780,6 +780,14 @@ function parse($verbatim_code, $extend = 10)
 					break;
 					
 				//------------------------------------------------------------------------
+				case 'BRIT':
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber']  = $result->institutionCode . $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;						
+					
+				//------------------------------------------------------------------------
 				case 'BSIP':
 					$parameters = array();
 					$parameters['institutionCode'] = 'BPBM';
@@ -1868,7 +1876,14 @@ function parse($verbatim_code, $extend = 10)
 					$result->parameters[] = $parameters;
 					break;	
 					
-			
+				//------------------------------------------------------------------------
+				case 'TRT':
+					$parameters = array();
+					$parameters['collectionCode'] = $result->institutionCode;
+					$parameters['catalogNumber']  = $result->institutionCode . $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;	
+													
 				//------------------------------------------------------------------------
 				// TTU 
 				case 'TTU':
@@ -1883,9 +1898,7 @@ function parse($verbatim_code, $extend = 10)
 					$parameters['catalogNumber'] = $result->catalogNumber;
 					$result->parameters[] = $parameters;
 					break;
-				
-					
-					
+														
 				/*
 				//------------------------------------------------------------------------
 				// Old Naturalis
@@ -1934,6 +1947,23 @@ function parse($verbatim_code, $extend = 10)
 					$parameters['institutionCode'] = $result->institutionCode;
 					$parameters['catalogNumber'] = $result->catalogNumber;
 					$result->parameters[] = $parameters;					
+					break;
+					
+				//------------------------------------------------------------------------
+				case 'UBC':
+				case 'V':
+					$parameters = array();
+					$parameters['institutionCode'] = 'ca.ubc';
+					
+					if ($result->institutionCode == 'UBC')
+					{
+						$parameters['catalogNumber'] = $result->catalogNumber;
+					}
+					else
+					{
+						$parameters['catalogNumber'] = $result->institutionCode . $result->catalogNumber;						
+					}
+					$result->parameters[] = $parameters;	
 					break;
 					
 				//------------------------------------------------------------------------
