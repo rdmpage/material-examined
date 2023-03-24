@@ -257,7 +257,11 @@
 			
 				console.log(JSON.stringify(data, null, 2));
 				
-				html = ejs.render(template_results, { data: data });
+				if (data.hits) {				
+					html = ejs.render(template_results, { data: data });
+				} else {
+					html = '<span style="background-color:orange;padding:1em;">' + q + '" not found</span>';
+				}
 				document.getElementById('results').innerHTML = html;
 
 			}

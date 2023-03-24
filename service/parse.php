@@ -877,6 +877,19 @@ function parse($verbatim_code, $extend = 10)
 					break;	
 					
 				//------------------------------------------------------------------------
+				case 'CASTYPE':
+					$matched = false;
+					if (!$matched)
+					{
+						$parameters = array();
+						$parameters['institutionCode'] = 'CASC';
+						$parameters['collectionCode'] = 'CASTYPE';
+						$parameters['catalogNumber'] = $result->institutionCode . $result->catalogNumber;
+						$result->parameters[] = $parameters;
+					}
+					break;	
+					
+				//------------------------------------------------------------------------
 				case 'CIB':
 					$matched = false;
 					if (is_numeric($result->catalogNumber))
