@@ -99,6 +99,17 @@
 									}
 								}
 								
+								
+								if (!handled) {
+									if (data.hits[i].references) {
+										if (data.hits[i].references.match(/collections.peabody.yale.edu/)) {
+											occurrenceUrl = data.hits[i].references;
+											occurrenceID = data.hits[i].references;
+											handled = true;
+										}
+									}
+								}	
+															
 													       
 					    		if (!handled) {
 					       			occurrenceID = data.hits[i].occurrenceID;
@@ -249,7 +260,7 @@
       		
 			var q = document.getElementById('query').value;
 						
-		$.getJSON('service/api.php?code=' 
+			$.getJSON('service/api.php?code=' 
 				+ encodeURI(q)
 				+ '&match&extend=10'
 				+ '&callback=?',
