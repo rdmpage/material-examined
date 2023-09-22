@@ -99,6 +99,28 @@
 									}
 								}
 								
+
+								// Harvard Herbarium
+								if (!handled) {
+									if (data.hits[i].datasetKey == '861e6afe-f762-11e1-a439-00145eb45e9a') {
+										if (data.hits[i].extensions)
+										{
+											console.log(data.hits[i].extensions);
+											if (data.hits[i].extensions["http://rs.tdwg.org/dwc/terms/ResourceRelationship"]) {
+												for (var j in data.hits[i].extensions["http://rs.tdwg.org/dwc/terms/ResourceRelationship"]) {
+													console.log(data.hits[i].extensions["http://rs.tdwg.org/dwc/terms/ResourceRelationship"][j]);
+													if (data.hits[i].extensions["http://rs.tdwg.org/dwc/terms/ResourceRelationship"][j]["http://rs.tdwg.org/dwc/terms/relationshipOfResource"] == "sameAs") {
+														occurrenceUrl = data.hits[i].extensions["http://rs.tdwg.org/dwc/terms/ResourceRelationship"][j]["http://rs.tdwg.org/dwc/terms/relatedResourceID"];
+														occurrenceID = data.hits[i].occurrenceID;
+														handled = true;													
+													}
+												}											
+											}	
+										}									
+									}
+								}
+								
+								
 								
 								if (!handled) {
 									if (data.hits[i].references) {
