@@ -144,6 +144,9 @@ $patterns = array(
 	
 	// KU:IT:00312	
 	'/^(?<institutionCode>KU):(<collectionCode>IT):(?<catalogNumber>\d+)$/',
+	
+	// L.2694740
+	'/^(?<institutionCode>L)(?<catalogNumber>\.\d+)$/',
 
 	// LACM
 	'/^(?<institutionCode>LACM)\s*(?<catalogNumber>\d+)$/',
@@ -1056,6 +1059,14 @@ function parse($verbatim_code, $extend = 10)
 					break;		
 					
 				//------------------------------------------------------------------------
+				case 'COI':
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = 'http://coicatalogue.uc.pt/specimen/' . $result->institutionCode . $result->catalogNumber;
+					$result->parameters[] = $parameters;						
+					break;		
+					
+				//------------------------------------------------------------------------
 				case 'COL':
 					$parameters = array();
 					$parameters['institutionCode'] = 'Universidad Nacional de Colombia (UNAL)';
@@ -1291,6 +1302,14 @@ function parse($verbatim_code, $extend = 10)
 					$parameters['institutionID'] = 'Naturalis Biodiversity Center';
 					$parameters['catalogNumber'] = 'L  ' . $result->catalogNumber;
 					$result->parameters[] = $parameters;			
+
+					if (preg_match('/^\.\d+/', $result->catalogNumber))
+					{
+						$parameters = array();
+						$parameters['institutionID'] = 'Naturalis Biodiversity Center';
+						$parameters['catalogNumber'] = 'L' . $result->catalogNumber;
+						$result->parameters[] = $parameters;
+					}			
 					
 					$use_default = true;
 					break;

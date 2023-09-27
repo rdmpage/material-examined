@@ -121,6 +121,16 @@
 								}
 								
 								
+								// COI
+								if (!handled) {
+									if (data.hits[i].datasetKey == 'a559e942-0fbe-4f09-93ca-28cf244ce2a0') {
+										if (data.hits[i].catalogNumber.match(/^http/)) {
+											occurrenceUrl = data.hits[i].catalogNumber;
+											occurrenceID = data.hits[i].catalogNumber;
+											handled = true;
+										}
+									}
+								}	
 								
 								if (!handled) {
 									if (data.hits[i].references) {
@@ -131,6 +141,7 @@
 										}
 									}
 								}	
+								
 															
 													       
 					    		if (!handled) {
