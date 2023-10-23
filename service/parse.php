@@ -16,6 +16,8 @@ $patterns = array(
 
 	'/^[0]*(?<catalogNumber>\d+)[;|-]\s*(?<institutionCode>Smithsonian National Museum of Natural History)/i',
 	
+	// AD97518363A
+	'/^(?<institutionCode>AD)(?<catalogNumber>\d+[A-Z])$/',	
 	
 	// Start note AM\s*[A-Z] will also catch AMNH, breaking code! Use \s+ and be more specific 
 	// AM
@@ -72,7 +74,8 @@ $patterns = array(
 	'/^(?<institutionCode>Australian Museum)\s+(lot\s+)?(?<catalogNumber>[A-Z]\s*\d+)$/',
 	
 	// B_10_0278204
-	'/^(?<institutionCode>B)_(?<catalogNumber>\d+_\d+)$/',
+	// B 10 0001470
+	'/^(?<institutionCode>B)[_|\s](?<catalogNumber>\d+[_|\s]\d+)$/',
 	
 	// BIOUG<CAN>:10BBEPT-0185
 	'/^(?<institutionCode>BIOUG)<CAN>:(?<catalogNumber>.*)$/',
@@ -123,6 +126,8 @@ $patterns = array(
 	// CSIRO H 4027-03
 	'/^(?<institutionCode>CSIRO)\s+(?<catalogNumber>[A-Z]\s*\d+\s*-\s*\d+)$/',
 	
+	// DNA-D0032714
+	'/^(?<institutionCode>DNA)-(?<catalogNumber>[A-Z]\d+)$/',
 	
 	// European Molecular Biology Laboratory Australian Mirror DQ107962
 	'/^(?<institutionCode>European Molecular Biology Laboratory Australian Mirror)\s+(?<catalogNumber>[A-Z]+\d+)$/',
@@ -192,6 +197,9 @@ $patterns = array(
 	
 	// MZLU L920/3021
 	'/^(?<institutionCode>MZLU)\s+(?<catalogNumber>[A-Z]\d+\/\d+)$/',
+	
+	// NBG0058092-0
+	'/^(?<institutionCode>NBG)(?<catalogNumber>\d+(-\d+)?)$/',
 	
 	// NHM 1882.1.20.933
 	'/^(?<institutionCode>NHM)\s+(?<catalogNumber>[0-9]{1,4}(\.\d+)+)$/',
@@ -477,6 +485,35 @@ function parse($verbatim_code, $extend = 10)
 				
 					$use_default = true;
 					break;			
+					
+				//------------------------------------------------------------------------
+				case 'AD':
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->institutionCode . ' ' . $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					
+					// suffixes
+					$suffixes = array('A','B','C', 'D');
+					foreach ($suffixes as $suffix)
+					{
+						$parameters = array();
+						$parameters['institutionCode'] = $result->institutionCode;
+						$parameters['catalogNumber'] = $result->institutionCode . ' ' . $result->catalogNumber . $suffix;
+						$result->parameters[] = $parameters;
+					}					
+					break;									
+
+				//------------------------------------------------------------------------
+				case 'AK':
+					// Auckland
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->institutionCode . $result->catalogNumber;
+					$result->parameters[] = $parameters;
+				
+					$use_default = true;
+					break;			
 			
 				//------------------------------------------------------------------------
 				case 'AM':
@@ -746,8 +783,7 @@ function parse($verbatim_code, $extend = 10)
 					$parameters['collectionCode'] = $result->institutionCode;
 					$parameters['otherCatalogNumbers'] = 'Barcode: ' . $result->institutionCode . $result->catalogNumber;
 					$result->parameters[] = $parameters;
-					break;				
-						
+					break;										
 					
 				//------------------------------------------------------------------------
 				case 'BM':
@@ -994,6 +1030,13 @@ function parse($verbatim_code, $extend = 10)
 					$use_default = true;
 					break;	
 					
+				//------------------------------------------------------------------------
+				case 'CLEMS':
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->institutionCode . $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;
 					
 				//------------------------------------------------------------------------
 				case 'CM':
@@ -1097,6 +1140,14 @@ function parse($verbatim_code, $extend = 10)
 					break;
 					
 				//------------------------------------------------------------------------
+				case 'DNA': 
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->institutionCode . ' ' . $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;	
+										
+				//------------------------------------------------------------------------
 				case 'DOT': // AMNH birds by themselves
 					$matched = false;
 					if (is_numeric($result->catalogNumber))
@@ -1179,6 +1230,18 @@ function parse($verbatim_code, $extend = 10)
 
 					}
 					break;	
+					
+				//------------------------------------------------------------------------
+				case 'FR':
+					$parameters = array();
+					$parameters['institutionCode'] = 'SMF';
+					$parameters['collectionCode'] = 'FR';
+					$parameters['catalogNumber'] = $result->institutionCode . '-' . $result->catalogNumber;	
+					$result->parameters[] = $parameters;				
+					
+					$use_default = true;
+					break;
+					
 					
 				//------------------------------------------------------------------------
 				case 'GB':
@@ -1283,18 +1346,6 @@ function parse($verbatim_code, $extend = 10)
 					$parameters['catalogNumber'] = $result->catalogNumber;
 					$result->parameters[] = $parameters;
 					break;
-					
-				//------------------------------------------------------------------------
-				case 'LACM':
-					// Create for mammals
-					$parameters = array();
-					$parameters['institutionCode'] = $result->institutionCode;
-					$parameters['collectionCode'] = 'Mammals';
-					$parameters['catalogNumber'] = str_pad($result->catalogNumber, 6,'0', STR_PAD_LEFT);
-					$result->parameters[] = $parameters;			
-					
-					$use_default = true;
-					break;
 
 				//------------------------------------------------------------------------
 				case 'L':
@@ -1313,6 +1364,41 @@ function parse($verbatim_code, $extend = 10)
 					
 					$use_default = true;
 					break;
+					
+					
+				//------------------------------------------------------------------------
+				case 'LACM':
+					// Create for mammals
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['collectionCode'] = 'Mammals';
+					$parameters['catalogNumber'] = str_pad($result->catalogNumber, 6,'0', STR_PAD_LEFT);
+					$result->parameters[] = $parameters;			
+					
+					$use_default = true;
+					break;
+
+					
+				//------------------------------------------------------------------------
+				case 'LISC':
+					// Create for mammals
+					$parameters = array();
+					$parameters['institutionCode'] = 'IICT';
+					$parameters['collectionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->institutionCode . $result->catalogNumber;
+					$result->parameters[] = $parameters;			
+					
+					$use_default = true;
+					break;
+					
+				//------------------------------------------------------------------------
+				case 'LL':
+					$parameters = array();
+					$parameters['institutionCode'] = 'TEX';
+					$parameters['collectionCode'] = 'LL';
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;				
 
 				//------------------------------------------------------------------------
 				case 'MA':
@@ -1322,6 +1408,14 @@ function parse($verbatim_code, $extend = 10)
 					$result->parameters[] = $parameters;	
 					
 					$use_default = true;
+					break;
+
+				//------------------------------------------------------------------------
+				case 'MBM':
+					$parameters = array();
+					$parameters['institutionID'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->institutionCode . $result->catalogNumber;
+					$result->parameters[] = $parameters;	
 					break;
 					
 				//------------------------------------------------------------------------
@@ -1375,7 +1469,15 @@ function parse($verbatim_code, $extend = 10)
 					$parameters['collectionCode'] = $result->institutionCode;
 					$parameters['institutionCode'] = 'IBUNAM';
 					$parameters['catalogNumber'] = $result->catalogNumber;
-					$result->parameters[] = $parameters;						
+					$result->parameters[] = $parameters;	
+					
+					{
+						$parameters = array();
+						$parameters['collectionCode'] = $result->institutionCode;
+						$parameters['institutionCode'] = 'IBUNAM';
+						$parameters['catalogNumber'] = preg_replace('/^0+/', '', $result->catalogNumber);
+						$result->parameters[] = $parameters;	
+					}					
 					break;				
 										
 				//------------------------------------------------------------------------
@@ -1485,6 +1587,18 @@ function parse($verbatim_code, $extend = 10)
 					break;
 					
 				//------------------------------------------------------------------------
+				case 'MIN':
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['collectionCode'] = 'Plants';
+					$parameters['otherCatalogNumbers'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					
+					$use_default = true;
+					break;				
+					
+					
+				//------------------------------------------------------------------------
 				// MPEG
 				case 'MPEG':
 					{
@@ -1533,6 +1647,21 @@ function parse($verbatim_code, $extend = 10)
 					$use_default = true;
 					break;
 					
+				//------------------------------------------------------------------------
+				case 'NBG':
+					$parameters = array();
+					$parameters['catalogNumber'] = $result->institutionCode . $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;
+
+				//------------------------------------------------------------------------
+				case 'NCU':
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->institutionCode . $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;
+
 				//------------------------------------------------------------------------
 				case 'NHM':
 					$parameters = array();
@@ -1672,13 +1801,34 @@ function parse($verbatim_code, $extend = 10)
 					}
 					break;	
 					
+				case 'PC':
+					$parameters = array();
+					$parameters['institutionCode'] = 'MNHN';
+					$parameters['collectionCode'] = 'PC';
+					$parameters['catalogNumber'] = $result->institutionCode . $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;
+					
+				//------------------------------------------------------------------------
+				case 'PERTH':
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['collectionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->institutionCode . ' ' . preg_replace('/^0+/', '', $result->catalogNumber);
+					$result->parameters[] = $parameters;
+					break;
+					
+					
 				//------------------------------------------------------------------------
 				case 'QRS':
-					$parameters = array();
-					$parameters['institutionCode'] = 'CNS';
-					$parameters['collectionCode'] = 'CNS';
-					$parameters['catalogNumber'] = $result->institutionCode . ' ' . $result->catalogNumber . '.1';
-					$result->parameters[] = $parameters;
+					for ($i = 1; $i <= 4; $i++)
+					{
+						$parameters = array();
+						$parameters['institutionCode'] = 'CNS';
+						$parameters['collectionCode'] = 'CNS';
+						$parameters['catalogNumber'] = $result->institutionCode . ' ' . $result->catalogNumber . '.' . $i;
+						$result->parameters[] = $parameters;
+					}
 					
 					$use_default = true;
 					break;
@@ -1823,6 +1973,25 @@ function parse($verbatim_code, $extend = 10)
 					break;
 					
 				//------------------------------------------------------------------------
+				case 'SANT':
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['collectionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;
+					
+					
+				//------------------------------------------------------------------------
+				case 'SAV':
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->institutionCode . $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;
+					
+					
+				//------------------------------------------------------------------------
 				case 'NTM':
 					{
 						$parameters = array();
@@ -1918,7 +2087,19 @@ function parse($verbatim_code, $extend = 10)
 					{
 						$use_default = true;
 					}				
-					break;					
+					break;		
+					
+				//------------------------------------------------------------------------
+				case 'RENO':
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['collectionCode'] = 'V';
+					$parameters['catalogNumber'] = preg_replace('/^0+/', '', $result->catalogNumber);	
+					$result->parameters[] = $parameters;				
+					
+					$use_default = true;
+					break;
+								
 					
 				//------------------------------------------------------------------------
 				case 'ROM':

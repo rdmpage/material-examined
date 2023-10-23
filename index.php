@@ -142,7 +142,33 @@
 									}
 								}	
 								
-															
+								// NCU
+								if (!handled) {
+									if (data.hits[i].datasetKey == '27b4ff4b-29c3-4017-9c48-3750861392f7') {
+											occurrenceUrl = data.hits[i].references;
+											occurrenceID = data.hits[i].occurrenceID;
+											handled = true;
+									}
+								}	
+
+								// NY
+								if (!handled) {
+									if (data.hits[i].datasetKey == 'd415c253-4d61-4459-9d25-4015b9084fb0') {
+											occurrenceUrl = data.hits[i].references;
+											occurrenceID = data.hits[i].occurrenceID;
+											handled = true;
+									}
+								}	
+								
+								// AK
+								if (!handled) {
+									if (data.hits[i].datasetKey == '83ae84cf-88e4-4b5c-80b2-271a15a3e0fc') {
+											occurrenceUrl = data.hits[i].references;
+											occurrenceID = data.hits[i].identifier;
+											handled = true;
+									}
+								}	
+								
 													       
 					    		if (!handled) {
 					       			occurrenceID = data.hits[i].occurrenceID;
