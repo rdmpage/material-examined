@@ -109,6 +109,9 @@ $patterns = array(
 	// BMNH (E) 1009503
 	'/^(?<institutionCode>BMNH\s*\(E\))\s*(?<catalogNumber>\d+)$/',
 	
+	// BRI-AQ0167409
+	'/^(?<institutionCode>BRI)-(?<catalogNumber>[A-Z]+\d+)$/',
+	
 	// CAS:192888
 	'/^(?<institutionCode>CAS):(?<catalogNumber>\d+)$/',
 	
@@ -121,6 +124,9 @@ $patterns = array(
 	
 	// CBM-ZC 10275
 	'/^(?<institutionCode>CBM)\-(?<collectionCode>[A-Z]+)\s+(?<catalogNumber>\d+)$/',
+
+	// CHR 493949 B
+	'/^(?<institutionCode>CHR)\s+(?<catalogNumber>\d+(\s+[A-Z])?)$/',
 	
 	
 	// CSIRO H 4027-03
@@ -257,6 +263,10 @@ $patterns = array(
 	// OMNH-P 21175
 	'/^(?<institutionCode>OMNH)-(?<collectionCode>[P])\s+(?<catalogNumber>\d+)$/',
 	
+	// PRE0273372-0
+	'/^(?<institutionCode>PRE)(?<catalogNumber>\d+-\d+)$/',
+	
+	
 	// RMCA A.68708
 	'/^(?<institutionCode>RMCA)\s+(?<collectionCode>A)\.(?<catalogNumber>\d+)$/',
 	
@@ -272,6 +282,9 @@ $patterns = array(
 	
 	// S-R-5461
 	'/^(?<institutionCode>S)(?<catalogNumber>-.*)$/',
+	
+	// SAM0030590-0
+	'/^(?<institutionCode>SAM)(?<catalogNumber>\d+-\d+)$/',
 	
 	// SAM NN24373
 	'/^(?<institutionCode>SAM)\s+(?<catalogNumber>[A-Z]{1,2}\d+)$/',
@@ -874,6 +887,14 @@ function parse($verbatim_code, $extend = 10)
 					break;
 					
 				//------------------------------------------------------------------------
+				case 'BRI':
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber']  = $result->institutionCode . ' ' . $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;	
+					
+				//------------------------------------------------------------------------
 				case 'BRIT':
 					$parameters = array();
 					$parameters['institutionCode'] = $result->institutionCode;
@@ -917,37 +938,48 @@ function parse($verbatim_code, $extend = 10)
 					
 				//------------------------------------------------------------------------
 				case 'CAS':
-					$matched = false;
-					if (!$matched)
+					if (1)
 					{
-						if (preg_match('/^0+(?<code>\d+)/', $result->catalogNumber, $m))
+						$parameters = array();
+						$parameters['institutionCode'] = $result->institutionCode;
+						$parameters['collectionCode']  = 'BOT-BC';
+						$parameters['catalogNumber']   = preg_replace('/^0+/', '', $result->catalogNumber);
+						$result->parameters[] = $parameters;
+					}
+					else
+					{
+						$matched = false;
+						if (!$matched)
 						{
-							$matched = true;
+							if (preg_match('/^0+(?<code>\d+)/', $result->catalogNumber, $m))
+							{
+								$matched = true;
+								$parameters = array();
+								$parameters['institutionCode'] = $result->institutionCode;
+								$parameters['catalogNumber'] = $m['code'] . '.0';
+								$result->parameters[] = $parameters;
+							}							
+						
+						}
+					
+						if (is_numeric($result->catalogNumber))
+						{
 							$parameters = array();
 							$parameters['institutionCode'] = $result->institutionCode;
-							$parameters['catalogNumber'] = $m['code'] . '.0';
+							$parameters['catalogNumber'] = preg_replace('/^0+/', '', $result->catalogNumber);
 							$result->parameters[] = $parameters;
-						}							
-						
-					}
-					
-					if (is_numeric($result->catalogNumber))
-					{
-						$parameters = array();
-						$parameters['institutionCode'] = $result->institutionCode;
-						$parameters['catalogNumber'] = preg_replace('/^0+/', '', $result->catalogNumber);
-						$result->parameters[] = $parameters;
 									
-					}
+						}
 					
-					if (!$matched)
-					{
-						$parameters = array();
-						$parameters['institutionCode'] = $result->institutionCode;
-						$parameters['catalogNumber'] = $result->catalogNumber . '.0';
-						$result->parameters[] = $parameters;
+						if (!$matched)
+						{
+							$parameters = array();
+							$parameters['institutionCode'] = $result->institutionCode;
+							$parameters['catalogNumber'] = $result->catalogNumber . '.0';
+							$result->parameters[] = $parameters;
 						
-						$use_default = true;
+							$use_default = true;
+						}
 					}
 					break;
 					
@@ -1014,6 +1046,15 @@ function parse($verbatim_code, $extend = 10)
 						$result->parameters[] = $parameters;
 					}
 					break;	
+					
+				//------------------------------------------------------------------------
+				case 'CHR':
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->institutionCode . ' ' . $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;	
+					
 					
 				//------------------------------------------------------------------------
 				case 'CIB':
@@ -1818,6 +1859,14 @@ function parse($verbatim_code, $extend = 10)
 					$result->parameters[] = $parameters;
 					break;
 					
+				//------------------------------------------------------------------------
+				case 'PRE':
+					$parameters = array();
+					$parameters['catalogNumber'] = $result->institutionCode . $result->catalogNumber;
+					$result->parameters[] = $parameters;
+					break;
+					
+					
 					
 				//------------------------------------------------------------------------
 				case 'QRS':
@@ -2138,7 +2187,15 @@ function parse($verbatim_code, $extend = 10)
 							$result->parameters[] = $parameters;
 						}													
 					}
-
+					
+					if (preg_match('/\d+\d+/', $result->catalogNumber, $m))
+					{
+						$matched = true;
+						$parameters = array();
+						$parameters['catalogNumber'] = $result->institutionCode . $result->catalogNumber;
+						$result->parameters[] = $parameters;
+					}													
+					
 					$use_default = true;
 					break;	
 					
@@ -2165,9 +2222,19 @@ function parse($verbatim_code, $extend = 10)
 					$result->parameters[] = $parameters;
 
 					$use_default = true;
-					break;				
+					break;			
 					
+				//------------------------------------------------------------------------
+				case 'SI':
+					$parameters = array();
+					$parameters['institutionCode'] = $result->institutionCode;
+					$parameters['collectionCode'] = 'HERB';
+					$parameters['catalogNumber'] = preg_replace('/^0+/', '', $result->catalogNumber);
+					$result->parameters[] = $parameters;
 					
+					$use_default = true;
+					break;
+											
 				//------------------------------------------------------------------------
 				case 'Smithsonian National Museum of Natural History':
 					$catalog_numbers = extend_catalog_number($result->catalogNumber, $extend_by);
