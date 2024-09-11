@@ -165,6 +165,9 @@ $patterns = array(
 	// LAE
 	'/^(?<institutionCode>LAE)\s*(?<catalogNumber>LAE\d+)$/',
 	
+	// MABIK CR00240701
+
+	'/^(?<institutionCode>MABIK)\s*(?<catalogNumber>CR\d+)$/',
 	
 	
 	// MCZ:A-138404
@@ -1395,6 +1398,11 @@ function parse($verbatim_code, $extend = 10)
 					$parameters['catalogNumber'] = 'L  ' . $result->catalogNumber;
 					$result->parameters[] = $parameters;			
 
+					$parameters = array();
+					$parameters['institutionID'] = 'Naturalis Biodiversity Center';
+					$parameters['catalogNumber'] = 'L.' . $result->catalogNumber;
+					$result->parameters[] = $parameters;			
+
 					if (preg_match('/^\.\d+/', $result->catalogNumber))
 					{
 						$parameters = array();
@@ -1446,6 +1454,16 @@ function parse($verbatim_code, $extend = 10)
 					$parameters = array();
 					$parameters['institutionID'] = $result->institutionCode;
 					$parameters['catalogNumber'] = $result->institutionCode . '-01-' . str_pad($result->catalogNumber, 8, '0', STR_PAD_LEFT);
+					$result->parameters[] = $parameters;	
+					
+					$use_default = true;
+					break;
+
+				//------------------------------------------------------------------------
+				case 'MABIK':
+					$parameters = array();
+					$parameters['institutionID'] = $result->institutionCode;
+					$parameters['catalogNumber'] = $result->institutionCode . ' ' . $result->catalogNumber;
 					$result->parameters[] = $parameters;	
 					
 					$use_default = true;
@@ -1953,6 +1971,12 @@ function parse($verbatim_code, $extend = 10)
 							$parameters['catalogNumber'] = $result->institutionCode . '.' . $result->collectionCode. '.' . $result->catalogNumber;
 							$result->parameters[] = $parameters;
 							
+							unset($parameters['institutionCode']);
+							$parameters['institutionID'] = 'https://ror.org/0566bfb96';
+							$parameters['catalogNumber'] = $result->institutionCode . '.' . $result->collectionCode. '.' . $result->catalogNumber;
+							$result->parameters[] = $parameters;
+							
+							
 							$matched = true;					
 						}
 					}
@@ -1973,6 +1997,12 @@ function parse($verbatim_code, $extend = 10)
 								$parameters['institutionCode'] = 'Naturalis';
 								$parameters['catalogNumber'] = $result->institutionCode . '.' . $prefix . '.' . $result->catalogNumber;
 								$result->parameters[] = $parameters;
+
+								$parameters['institutionID'] = 'https://ror.org/0566bfb96';
+								$parameters['catalogNumber'] = $result->institutionCode . '.' . $prefix . '.' . $result->catalogNumber;
+								$result->parameters[] = $parameters;
+								
+								
 							}
 							$matched = true;
 						}
