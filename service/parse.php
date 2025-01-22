@@ -1994,14 +1994,15 @@ function parse($verbatim_code, $extend = 10)
 								$parameters['catalogNumber'] = $result->institutionCode . '.' . $prefix . '.' . $result->catalogNumber;
 								$result->parameters[] = $parameters;
 
+								$parameters = array();
 								$parameters['institutionCode'] = 'Naturalis';
 								$parameters['catalogNumber'] = $result->institutionCode . '.' . $prefix . '.' . $result->catalogNumber;
 								$result->parameters[] = $parameters;
 
+								$parameters = array();
 								$parameters['institutionID'] = 'https://ror.org/0566bfb96';
 								$parameters['catalogNumber'] = $result->institutionCode . '.' . $prefix . '.' . $result->catalogNumber;
 								$result->parameters[] = $parameters;
-								
 								
 							}
 							$matched = true;
