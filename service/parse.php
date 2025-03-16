@@ -183,6 +183,9 @@ $patterns = array(
 	//MCZ R.782
 	'/^(?<institutionCode>MCZ)\s+(?<catalogNumber>[A|R]\.\d+)$/',
 	
+	// MHNG-1958.023
+	'/^(?<institutionCode>MHNG)-(?<catalogNumber>\d+\.\d+)$/',
+	
 	// MNHN 1974-244
 	'/^(?<institutionCode>MNHN)(\s*|_)(?<catalogNumber>[0-9]{4}[-|_]\d+)$/',
 	
