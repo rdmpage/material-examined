@@ -320,7 +320,7 @@ $patterns = array(
 	'/^(?<institutionCode>USNM)\s*(?<collectionCode>ENT)\s+[0]*(?<catalogNumber>.*)$/',
 
 	// USNMENT00802038
-	'/^(?<institutionCode>USNM)(?<collectionCode>ENT)[0]*(?<catalogNumber>.*)$/',
+	'/^(?<institutionCode>USNM)(?<collectionCode>ENT)(?<catalogNumber>.*)$/',
 	
 	// UTA A51496
 	'/^(?<institutionCode>UTA)\s+(?<catalogNumber>[A-Z]\d+)$/',
@@ -2459,10 +2459,15 @@ function parse($verbatim_code, $extend = 10)
 					{
 						$catalog_number = 'USNMENT' . $result->catalogNumber;
 						
+						$parameters = array();
+						$parameters['institutionCode'] = $result->institutionCode;
+						$parameters['collectionCode'] = $result->collectionCode;
+						$parameters['catalogNumber'] = $catalog_number;
+						$result->parameters[] = $parameters;
+										
+						
 						// Deal with USNM catalog codes like USNM 730715.457409
-						
-						
-						
+						/*
 						$catalog_numbers = extend_catalog_number($catalog_number, $extend_by);
 					
 						foreach ($catalog_numbers as $catalog_number)
@@ -2473,6 +2478,7 @@ function parse($verbatim_code, $extend = 10)
 							$parameters['catalogNumber'] = $catalog_number;
 							$result->parameters[] = $parameters;
 						}
+						*/
 						
 						$matched = true;
 					}
