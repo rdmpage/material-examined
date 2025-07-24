@@ -105,6 +105,9 @@ $patterns = array(
 	// BM (NH) 1938:5:7: 89–91 not a range
 	'/^(?<institutionCode>BM\s+\(NH\))\s+(?<catalogNumber>[0-9]{1,4}(:\d+)+:\s*(\d+)+([–|-]\d+)?)$/u',
 	
+	// BMNH(E) #817669
+	'/^(?<institutionCode>BMNH\(E\))\s*#(?<catalogNumber>\d+)$/u',
+	
 
 	// BMNH (E) 1009503
 	'/^(?<institutionCode>BMNH\s*\(E\))\s*(?<catalogNumber>\d+)$/',
@@ -317,7 +320,7 @@ $patterns = array(
 	'/^UF:(?<institutionCode>UF)(?<catalogNumber>\d+)$/',
 	
 	// USNM ENT 00907308
-	'/^(?<institutionCode>USNM)\s*(?<collectionCode>ENT)\s+[0]*(?<catalogNumber>.*)$/',
+	'/^(?<institutionCode>USNM)\s*(?<collectionCode>ENT)\s+(?<catalogNumber>.*)$/',
 
 	// USNMENT00802038
 	'/^(?<institutionCode>USNM)(?<collectionCode>ENT)(?<catalogNumber>.*)$/',
@@ -341,7 +344,7 @@ $patterns = array(
 	'/^(?<institutionCode>WAM)\s+(?<catalogNumber>\d+(\-\d+)?)$/',	
 	
 	// WAM T111382
-	'/^(?<institutionCode>WAM)(\s+|:)[A-Z](?<catalogNumber>\d+)$/',	
+	'/^(?<institutionCode>WAM)(\s*|:)[A-Z](?<catalogNumber>\d+)$/',	
 	
 	// WAM P.30850-030
 	'/^(?<institutionCode>WAM)\s+(?<catalogNumber>[A-Z]\.?\d+(-\d+)?)$/',
@@ -2482,6 +2485,36 @@ function parse($verbatim_code, $extend = 10)
 						
 						$matched = true;
 					}
+					
+					if (!$matched)
+					{
+						if (isset($result->collectionCode) && in_array(strtoupper($result->collectionCode), array('FISH','HERP')))
+						{
+							$catalog_number = 'USNM' . ' ' . $result->catalogNumber;
+							
+							$parameters = array();
+							$parameters['institutionCode'] = $result->institutionCode;
+							$parameters['collectionCode'] = strtoupper($result->collectionCode);
+							$parameters['catalogNumber'] = $catalog_number;
+							$result->parameters[] = $parameters;
+							
+							$matched = true;
+						}
+					}
+
+					if (!$matched && !isset($result->collectionCode))
+					{
+						$catalog_number = 'USNM' . ' ' . $result->catalogNumber;
+						
+						$parameters = array();
+						$parameters['institutionCode'] = $result->institutionCode;
+						$parameters['catalogNumber'] = $catalog_number;
+						$result->parameters[] = $parameters;
+						
+						$matched = true;
+					}
+
+					
 					if (!$matched)
 					{
 						// Deal with USNM catalog codes like USNM 730715.457409
@@ -2631,7 +2664,7 @@ function parse($verbatim_code, $extend = 10)
 						
 						if ($result->institutionCode == 'WAM' && is_numeric($result->catalogNumber))
 						{
-							$prefixes = array('A', 'M', 'P', 'R', 'S');
+							$prefixes = array('A', 'E', 'M', 'P', 'R', 'S');
 							foreach ($prefixes as $prefix)
 							{
 								$parameters = array();

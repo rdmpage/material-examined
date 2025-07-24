@@ -318,9 +318,13 @@
       		document.getElementById('results').innerHTML = '<progress></progress>';
       		
 			var q = document.getElementById('query').value;
+			
+			q = q.replace('#', '%23');
+			q = q.replace(' ', '%20');
 						
 			$.getJSON('service/api.php?code=' 
-				+ encodeURI(q)
+				//+ encodeURI(q)
+				+ q
 				+ '&match&extend=10'
 				+ '&callback=?',
 			function(data){
