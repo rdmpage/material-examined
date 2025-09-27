@@ -153,6 +153,10 @@ $patterns = array(
 	// FLMNH 171012c';
 	'/^(?<institutionCode>FLMNH) (?<catalogNumber>\d+)[a-z]$/',
 	
+	// FMNH-INS 2842043
+	// FMNH-INS_2842043
+	'/^(?<institutionCode>FMNH-INS)[\s+|_](?<catalogNumber>\d+)$/',
+	
 	// KU Natural History Museum 109963
 	'/^(?<institutionCode>KU) Natural History Museum (?<catalogNumber>\d+)$/',
 	
@@ -1280,6 +1284,22 @@ function parse($verbatim_code, $extend = 10)
 
 					}
 					break;	
+					
+				case 'FMNH-INS':
+					// FMNHINS 0002 842 043
+					$parameters['institutionCode'] = 'FMNH';
+					$parameters['collectionCode'] = 'Insects';
+					
+					$catalogNumber = $result->catalogNumber;
+					$catalogNumber = str_pad($catalogNumber, 10, '0', STR_PAD_LEFT);
+					
+					$catalogNumber = substr($catalogNumber, 0,4) . ' ' . substr($catalogNumber, 4,3) . ' ' . substr($catalogNumber, 7,3);
+					
+					$catalogNumber = 'FMNHINS' . ' ' . $catalogNumber;
+					
+					$parameters['catalogNumber'] = $catalogNumber;
+					$result->parameters[] = $parameters;
+					break;
 					
 				//------------------------------------------------------------------------
 				case 'FR':
