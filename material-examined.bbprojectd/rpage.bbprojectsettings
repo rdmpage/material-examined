@@ -4,17 +4,54 @@
 <dict>
 	<key>EmbeddedEditorHidden:rpage</key>
 	<false/>
-	<key>ExpandedEditorWidth:rpage:displays([(0, 0), (3440, 1440)])</key>
-	<integer>1100</integer>
+	<key>ExpandedEditorWidth:rpage:displays([(0, 0), (1512, 982)])</key>
+	<integer>657</integer>
 	<key>ExpandedItems:rpage</key>
 	<array>
-		<string>C1DCF094-056B-4C09-8238-3D6D2373E0D2</string>
+		<string>B83306A9-1E20-4C4B-867A-BBDE3C70B944</string>
 		<string>FEEB5947-429E-4551-990A-40EC7FC952F5</string>
 	</array>
 	<key>FileFilterMode:rpage</key>
 	<integer>0</integer>
 	<key>OpenDocuments:rpage</key>
 	<array>
+		<dict>
+			<key>BookmarkData</key>
+			<data>
+			Ym9va1ADAAAAAAQQMAAAAE0Iyu20iofDDORdEYnN2j4OLt7ycAGh
+			rOeqWfioq5ATQAIAAAQAAAADAwAAAAgAKAUAAAABAQAAVXNlcnMA
+			AAAFAAAAAQEAAHJwYWdlAAAABQAAAAEBAABTaXRlcwAAABEAAAAB
+			AQAAbWF0ZXJpYWwtZXhhbWluZWQAAAAHAAAAAQEAAHNlcnZpY2UA
+			CQAAAAEBAABwYXJzZS5waHAAAAAYAAAAAQYAABAAAAAgAAAAMAAA
+			AEAAAABcAAAAbAAAAAgAAAAEAwAAhFwAAAAAAAAIAAAABAMAAJbG
+			AwAAAAAACAAAAAQDAABA6B4AAAAAAAgAAAAEAwAApnbCAwAAAAAI
+			AAAABAMAACp3wgMAAAAACAAAAAQDAAA0d8IDAAAAABgAAAABBgAA
+			oAAAALAAAADAAAAA0AAAAOAAAADwAAAACAAAAAAEAABBxNMOc6qk
+			5BgAAAABAgAAAQAAAAAAAAAPAAAAAAAAAAAAAAAAAAAACAAAAAQD
+			AAAEAAAAAAAAAAQAAAADAwAA9QEAAAgAAAABCQAAZmlsZTovLy8M
+			AAAAAQEAAE1hY2ludG9zaCBIRAgAAAAEAwAAAJCClucAAAAIAAAA
+			AAQAAEHGd57agAAAJAAAAAEBAABFRURCQzQ5NS1ERjUyLTQ1NkEt
+			QjQzMS1GQjYwN0JGMDRBRDEYAAAAAQIAAIEAAAABAAAA7xMAAAEA
+			AAAAAAAAAAAAAAEAAAABAQAALwAAAAAAAAABBQAAGgAAAAEBAABO
+			U1VSTERvY3VtZW50SWRlbnRpZmllcktleQAABAAAAAMDAAD6lAAA
+			2AAAAP7///8BAAAAAAAAABEAAAAEEAAAgAAAAAAAAAAFEAAAAAEA
+			AAAAAAAQEAAAMAEAAAAAAABAEAAAIAEAAAAAAAACIAAA/AEAAAAA
+			AAAFIAAAbAEAAAAAAAAQIAAAfAEAAAAAAAARIAAAsAEAAAAAAAAS
+			IAAAkAEAAAAAAAATIAAAoAEAAAAAAAAgIAAA3AEAAAAAAAAwIAAA
+			CAIAAAAAAAABwAAAUAEAAAAAAAARwAAAIAAAAAAAAAASwAAAYAEA
+			AAAAAAAQ0AAABAAAAAAAAAAQAgCANAIAAAAAAAA=
+			</data>
+			<key>FileURL</key>
+			<string>file:///Users/rpage/Sites/material-examined/service/parse.php</string>
+			<key>HasSecurityScope</key>
+			<true/>
+			<key>RelativePath</key>
+			<string>./service/parse.php</string>
+			<key>TypeID</key>
+			<string>_CFileLocator</string>
+			<key>Version</key>
+			<integer>1</integer>
+		</dict>
 		<dict>
 			<key>BookmarkData</key>
 			<data>
@@ -82,43 +119,6 @@
 			<true/>
 			<key>RelativePath</key>
 			<string>./service/gbif.php</string>
-			<key>TypeID</key>
-			<string>_CFileLocator</string>
-			<key>Version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>BookmarkData</key>
-			<data>
-			Ym9va1ADAAAAAAQQMAAAAE0Iyu20iofDDORdEYnN2j4OLt7ycAGh
-			rOeqWfioq5ATQAIAAAQAAAADAwAAAAgAKAUAAAABAQAAVXNlcnMA
-			AAAFAAAAAQEAAHJwYWdlAAAABQAAAAEBAABTaXRlcwAAABEAAAAB
-			AQAAbWF0ZXJpYWwtZXhhbWluZWQAAAAHAAAAAQEAAHNlcnZpY2UA
-			CQAAAAEBAABwYXJzZS5waHAAAAAYAAAAAQYAABAAAAAgAAAAMAAA
-			AEAAAABcAAAAbAAAAAgAAAAEAwAAhFwAAAAAAAAIAAAABAMAAJbG
-			AwAAAAAACAAAAAQDAABA6B4AAAAAAAgAAAAEAwAApnbCAwAAAAAI
-			AAAABAMAACp3wgMAAAAACAAAAAQDAAA0d8IDAAAAABgAAAABBgAA
-			oAAAALAAAADAAAAA0AAAAOAAAADwAAAACAAAAAAEAABBxNMOc6qk
-			5BgAAAABAgAAAQAAAAAAAAAPAAAAAAAAAAAAAAAAAAAACAAAAAQD
-			AAAEAAAAAAAAAAQAAAADAwAA9QEAAAgAAAABCQAAZmlsZTovLy8M
-			AAAAAQEAAE1hY2ludG9zaCBIRAgAAAAEAwAAAJCClucAAAAIAAAA
-			AAQAAEHGd57agAAAJAAAAAEBAABFRURCQzQ5NS1ERjUyLTQ1NkEt
-			QjQzMS1GQjYwN0JGMDRBRDEYAAAAAQIAAIEAAAABAAAA7xMAAAEA
-			AAAAAAAAAAAAAAEAAAABAQAALwAAAAAAAAABBQAAGgAAAAEBAABO
-			U1VSTERvY3VtZW50SWRlbnRpZmllcktleQAABAAAAAMDAAD6lAAA
-			2AAAAP7///8BAAAAAAAAABEAAAAEEAAAgAAAAAAAAAAFEAAAAAEA
-			AAAAAAAQEAAAMAEAAAAAAABAEAAAIAEAAAAAAAACIAAA/AEAAAAA
-			AAAFIAAAbAEAAAAAAAAQIAAAfAEAAAAAAAARIAAAsAEAAAAAAAAS
-			IAAAkAEAAAAAAAATIAAAoAEAAAAAAAAgIAAA3AEAAAAAAAAwIAAA
-			CAIAAAAAAAABwAAAUAEAAAAAAAARwAAAIAAAAAAAAAASwAAAYAEA
-			AAAAAAAQ0AAABAAAAAAAAAAQAgCANAIAAAAAAAA=
-			</data>
-			<key>FileURL</key>
-			<string>file:///Users/rpage/Sites/material-examined/service/parse.php</string>
-			<key>HasSecurityScope</key>
-			<true/>
-			<key>RelativePath</key>
-			<string>./service/parse.php</string>
 			<key>TypeID</key>
 			<string>_CFileLocator</string>
 			<key>Version</key>
@@ -199,7 +199,7 @@
 	<key>OpenDocumentsExpanded</key>
 	<true/>
 	<key>OpenDocumentsSplitterProportion</key>
-	<real>0.55786026200873362</real>
+	<real>0.43017456359102246</real>
 	<key>ProjectItemsExpanded</key>
 	<true/>
 	<key>ProjectViewVisible</key>
@@ -208,91 +208,7 @@
 	<array>
 		<dict>
 			<key>Date</key>
-			<date>2025-09-27T10:10:48Z</date>
-			<key>Location</key>
-			<dict>
-				<key>BookmarkData</key>
-				<data>
-				Ym9vaxADAAAAAAQQMAAAAMFz/0c+C5B5wUokHA8rRfAr
-				PEyh7TkGuc+/5JxCT3IADAIAAAQAAAADAwAAAAgAKAUA
-				AAABAQAAVXNlcnMAAAAFAAAAAQEAAHJwYWdlAAAABQAA
-				AAEBAABTaXRlcwAAABEAAAABAQAAbWF0ZXJpYWwtZXhh
-				bWluZWQAAAAHAAAAAQEAAHNlcnZpY2UABwAAAAEBAABs
-				aWIucGhwABgAAAABBgAAEAAAACAAAAAwAAAAQAAAAFwA
-				AABsAAAACAAAAAQDAACEXAAAAAAAAAgAAAAEAwAAlsYD
-				AAAAAAAIAAAABAMAAEDoHgAAAAAACAAAAAQDAACmdsID
-				AAAAAAgAAAAEAwAAKnfCAwAAAAAIAAAABAMAADN3wgMA
-				AAAAGAAAAAEGAACcAAAArAAAALwAAADMAAAA3AAAAOwA
-				AAAIAAAAAAQAAEHE0w5zqqH+GAAAAAECAAABAAAAAAAA
-				AA8AAAAAAAAAAAAAAAAAAAAIAAAABAMAAAQAAAAAAAAA
-				BAAAAAMDAAD1AQAACAAAAAEJAABmaWxlOi8vLwwAAAAB
-				AQAATWFjaW50b3NoIEhECAAAAAQDAAAAkIKW5wAAAAgA
-				AAAABAAAQcZ3ntqAAAAkAAAAAQEAAEVFREJDNDk1LURG
-				NTItNDU2QS1CNDMxLUZCNjA3QkYwNEFEMRgAAAABAgAA
-				gQAAAAEAAADvEwAAAQAAAAAAAAAAAAAAAQAAAAEBAAAv
-				AAAAAAAAAAEFAADMAAAA/v///wEAAAAAAAAAEAAAAAQQ
-				AAB8AAAAAAAAAAUQAAD8AAAAAAAAABAQAAAsAQAAAAAA
-				AEAQAAAcAQAAAAAAAAIgAAD4AQAAAAAAAAUgAABoAQAA
-				AAAAABAgAAB4AQAAAAAAABEgAACsAQAAAAAAABIgAACM
-				AQAAAAAAABMgAACcAQAAAAAAACAgAADYAQAAAAAAADAg
-				AAAEAgAAAAAAAAHAAABMAQAAAAAAABHAAAAgAAAAAAAA
-				ABLAAABcAQAAAAAAABDQAAAEAAAAAAAAAA==
-				</data>
-				<key>FileURL</key>
-				<string>file:///Users/rpage/Sites/material-examined/service/lib.php</string>
-				<key>HasSecurityScope</key>
-				<true/>
-				<key>TypeID</key>
-				<string>_CFileLocator</string>
-				<key>Version</key>
-				<integer>1</integer>
-			</dict>
-		</dict>
-		<dict>
-			<key>Date</key>
-			<date>2025-09-27T10:10:48Z</date>
-			<key>Location</key>
-			<dict>
-				<key>BookmarkData</key>
-				<data>
-				Ym9vaxADAAAAAAQQMAAAAJZ2JPiqG3OwtrGCy5L02RKv
-				qLckC5+Klexv50FInBX+DAIAAAQAAAADAwAAAAgAKAUA
-				AAABAQAAVXNlcnMAAAAFAAAAAQEAAHJwYWdlAAAABQAA
-				AAEBAABTaXRlcwAAABEAAAABAQAAbWF0ZXJpYWwtZXhh
-				bWluZWQAAAAHAAAAAQEAAHNlcnZpY2UACAAAAAEBAABn
-				YmlmLnBocBgAAAABBgAAEAAAACAAAAAwAAAAQAAAAFwA
-				AABsAAAACAAAAAQDAACEXAAAAAAAAAgAAAAEAwAAlsYD
-				AAAAAAAIAAAABAMAAEDoHgAAAAAACAAAAAQDAACmdsID
-				AAAAAAgAAAAEAwAAKnfCAwAAAAAIAAAABAMAADJ3wgMA
-				AAAAGAAAAAEGAACcAAAArAAAALwAAADMAAAA3AAAAOwA
-				AAAIAAAAAAQAAEHE0w5zqp87GAAAAAECAAABAAAAAAAA
-				AA8AAAAAAAAAAAAAAAAAAAAIAAAABAMAAAQAAAAAAAAA
-				BAAAAAMDAAD1AQAACAAAAAEJAABmaWxlOi8vLwwAAAAB
-				AQAATWFjaW50b3NoIEhECAAAAAQDAAAAkIKW5wAAAAgA
-				AAAABAAAQcZ3ntqAAAAkAAAAAQEAAEVFREJDNDk1LURG
-				NTItNDU2QS1CNDMxLUZCNjA3QkYwNEFEMRgAAAABAgAA
-				gQAAAAEAAADvEwAAAQAAAAAAAAAAAAAAAQAAAAEBAAAv
-				AAAAAAAAAAEFAADMAAAA/v///wEAAAAAAAAAEAAAAAQQ
-				AAB8AAAAAAAAAAUQAAD8AAAAAAAAABAQAAAsAQAAAAAA
-				AEAQAAAcAQAAAAAAAAIgAAD4AQAAAAAAAAUgAABoAQAA
-				AAAAABAgAAB4AQAAAAAAABEgAACsAQAAAAAAABIgAACM
-				AQAAAAAAABMgAACcAQAAAAAAACAgAADYAQAAAAAAADAg
-				AAAEAgAAAAAAAAHAAABMAQAAAAAAABHAAAAgAAAAAAAA
-				ABLAAABcAQAAAAAAABDQAAAEAAAAAAAAAA==
-				</data>
-				<key>FileURL</key>
-				<string>file:///Users/rpage/Sites/material-examined/service/gbif.php</string>
-				<key>HasSecurityScope</key>
-				<true/>
-				<key>TypeID</key>
-				<string>_CFileLocator</string>
-				<key>Version</key>
-				<integer>1</integer>
-			</dict>
-		</dict>
-		<dict>
-			<key>Date</key>
-			<date>2025-09-27T10:10:48Z</date>
+			<date>2025-10-07T14:08:45Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -336,7 +252,91 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2025-09-27T10:10:48Z</date>
+			<date>2025-10-07T14:08:45Z</date>
+			<key>Location</key>
+			<dict>
+				<key>BookmarkData</key>
+				<data>
+				Ym9vaxADAAAAAAQQMAAAAMFz/0c+C5B5wUokHA8rRfAr
+				PEyh7TkGuc+/5JxCT3IADAIAAAQAAAADAwAAAAgAKAUA
+				AAABAQAAVXNlcnMAAAAFAAAAAQEAAHJwYWdlAAAABQAA
+				AAEBAABTaXRlcwAAABEAAAABAQAAbWF0ZXJpYWwtZXhh
+				bWluZWQAAAAHAAAAAQEAAHNlcnZpY2UABwAAAAEBAABs
+				aWIucGhwABgAAAABBgAAEAAAACAAAAAwAAAAQAAAAFwA
+				AABsAAAACAAAAAQDAACEXAAAAAAAAAgAAAAEAwAAlsYD
+				AAAAAAAIAAAABAMAAEDoHgAAAAAACAAAAAQDAACmdsID
+				AAAAAAgAAAAEAwAAKnfCAwAAAAAIAAAABAMAADN3wgMA
+				AAAAGAAAAAEGAACcAAAArAAAALwAAADMAAAA3AAAAOwA
+				AAAIAAAAAAQAAEHE0w5zqqH+GAAAAAECAAABAAAAAAAA
+				AA8AAAAAAAAAAAAAAAAAAAAIAAAABAMAAAQAAAAAAAAA
+				BAAAAAMDAAD1AQAACAAAAAEJAABmaWxlOi8vLwwAAAAB
+				AQAATWFjaW50b3NoIEhECAAAAAQDAAAAkIKW5wAAAAgA
+				AAAABAAAQcZ3ntqAAAAkAAAAAQEAAEVFREJDNDk1LURG
+				NTItNDU2QS1CNDMxLUZCNjA3QkYwNEFEMRgAAAABAgAA
+				gQAAAAEAAADvEwAAAQAAAAAAAAAAAAAAAQAAAAEBAAAv
+				AAAAAAAAAAEFAADMAAAA/v///wEAAAAAAAAAEAAAAAQQ
+				AAB8AAAAAAAAAAUQAAD8AAAAAAAAABAQAAAsAQAAAAAA
+				AEAQAAAcAQAAAAAAAAIgAAD4AQAAAAAAAAUgAABoAQAA
+				AAAAABAgAAB4AQAAAAAAABEgAACsAQAAAAAAABIgAACM
+				AQAAAAAAABMgAACcAQAAAAAAACAgAADYAQAAAAAAADAg
+				AAAEAgAAAAAAAAHAAABMAQAAAAAAABHAAAAgAAAAAAAA
+				ABLAAABcAQAAAAAAABDQAAAEAAAAAAAAAA==
+				</data>
+				<key>FileURL</key>
+				<string>file:///Users/rpage/Sites/material-examined/service/lib.php</string>
+				<key>HasSecurityScope</key>
+				<true/>
+				<key>TypeID</key>
+				<string>_CFileLocator</string>
+				<key>Version</key>
+				<integer>1</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>Date</key>
+			<date>2025-10-07T14:08:45Z</date>
+			<key>Location</key>
+			<dict>
+				<key>BookmarkData</key>
+				<data>
+				Ym9vaxADAAAAAAQQMAAAAJZ2JPiqG3OwtrGCy5L02RKv
+				qLckC5+Klexv50FInBX+DAIAAAQAAAADAwAAAAgAKAUA
+				AAABAQAAVXNlcnMAAAAFAAAAAQEAAHJwYWdlAAAABQAA
+				AAEBAABTaXRlcwAAABEAAAABAQAAbWF0ZXJpYWwtZXhh
+				bWluZWQAAAAHAAAAAQEAAHNlcnZpY2UACAAAAAEBAABn
+				YmlmLnBocBgAAAABBgAAEAAAACAAAAAwAAAAQAAAAFwA
+				AABsAAAACAAAAAQDAACEXAAAAAAAAAgAAAAEAwAAlsYD
+				AAAAAAAIAAAABAMAAEDoHgAAAAAACAAAAAQDAACmdsID
+				AAAAAAgAAAAEAwAAKnfCAwAAAAAIAAAABAMAADJ3wgMA
+				AAAAGAAAAAEGAACcAAAArAAAALwAAADMAAAA3AAAAOwA
+				AAAIAAAAAAQAAEHE0w5zqp87GAAAAAECAAABAAAAAAAA
+				AA8AAAAAAAAAAAAAAAAAAAAIAAAABAMAAAQAAAAAAAAA
+				BAAAAAMDAAD1AQAACAAAAAEJAABmaWxlOi8vLwwAAAAB
+				AQAATWFjaW50b3NoIEhECAAAAAQDAAAAkIKW5wAAAAgA
+				AAAABAAAQcZ3ntqAAAAkAAAAAQEAAEVFREJDNDk1LURG
+				NTItNDU2QS1CNDMxLUZCNjA3QkYwNEFEMRgAAAABAgAA
+				gQAAAAEAAADvEwAAAQAAAAAAAAAAAAAAAQAAAAEBAAAv
+				AAAAAAAAAAEFAADMAAAA/v///wEAAAAAAAAAEAAAAAQQ
+				AAB8AAAAAAAAAAUQAAD8AAAAAAAAABAQAAAsAQAAAAAA
+				AEAQAAAcAQAAAAAAAAIgAAD4AQAAAAAAAAUgAABoAQAA
+				AAAAABAgAAB4AQAAAAAAABEgAACsAQAAAAAAABIgAACM
+				AQAAAAAAABMgAACcAQAAAAAAACAgAADYAQAAAAAAADAg
+				AAAEAgAAAAAAAAHAAABMAQAAAAAAABHAAAAgAAAAAAAA
+				ABLAAABcAQAAAAAAABDQAAAEAAAAAAAAAA==
+				</data>
+				<key>FileURL</key>
+				<string>file:///Users/rpage/Sites/material-examined/service/gbif.php</string>
+				<key>HasSecurityScope</key>
+				<true/>
+				<key>TypeID</key>
+				<string>_CFileLocator</string>
+				<key>Version</key>
+				<integer>1</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>Date</key>
+			<date>2025-10-07T14:08:45Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -377,7 +377,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2025-09-27T10:10:48Z</date>
+			<date>2025-10-07T14:08:45Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -420,7 +420,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2025-09-27T10:10:48Z</date>
+			<date>2025-10-07T14:08:45Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -463,7 +463,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2025-09-27T10:10:48Z</date>
+			<date>2025-10-07T14:08:45Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -505,7 +505,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2025-09-27T10:10:48Z</date>
+			<date>2025-10-07T14:08:45Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -546,7 +546,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2025-09-27T10:10:48Z</date>
+			<date>2025-10-07T14:08:45Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -588,7 +588,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2025-09-27T10:10:48Z</date>
+			<date>2025-10-07T14:08:45Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -631,7 +631,7 @@
 		</dict>
 		<dict>
 			<key>Date</key>
-			<date>2025-09-27T10:10:48Z</date>
+			<date>2025-10-07T14:08:45Z</date>
 			<key>Location</key>
 			<dict>
 				<key>BookmarkData</key>
@@ -682,8 +682,8 @@
 	<key>ToolbarVisible:rpage</key>
 	<false/>
 	<key>ViewSplitterPosition:rpage</key>
-	<real>0.15579432249069214</real>
-	<key>WindowFrame:rpage:displays([(0, 0), (3440, 1440)])</key>
-	<string>rect(270,928,1186,2231)</string>
+	<real>0.23604650795459747</real>
+	<key>WindowFrame:rpage:displays([(0, 0), (1512, 982)])</key>
+	<string>rect(142,479,944,1339)</string>
 </dict>
 </plist>

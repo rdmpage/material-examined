@@ -270,6 +270,7 @@
 					   	 genbank = genbank.replace(/Genbank:/, '');
 					   	 genbank = genbank.replace(/https?:\\/\\/www.ncbi.nlm.nih.gov\\/nuccore\\//g, '');
 					   	 genbank = genbank.replace(/https?:\\/\\/www.ncbi.nlm.nih.gov\\/gquery\\?term=/g, '');
+					   	 genbank = genbank.replace(/https:\\/\\/www.ebi.ac.uk\\/ena\\/browser\\/api\\/embl\\//, '');
 					   	 genbank = genbank.replace(/\s*;\s*/g, '|');
 					   	 genbank_list = genbank.split('|');
 					   }	
