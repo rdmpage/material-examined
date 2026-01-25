@@ -2664,7 +2664,7 @@ function parse($verbatim_code, $extend = 10)
 						// No prefixes
 						if (preg_match('/^(?<main>\d+)[\.|-]?(?<suffix>\d+)$/', $result->catalogNumber, $m))
 						{
-							$prefixes = array('A', 'M', 'P', 'R', 'S');
+							$prefixes = array('A', 'M', 'P', 'R', 'S', 'T');
 							foreach ($prefixes as $prefix)
 							{
 								$parameters = array();
