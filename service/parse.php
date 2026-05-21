@@ -1602,8 +1602,24 @@ function parse($verbatim_code, $extend = 10)
 								$result->parameters[] = $parameters;
 							}
 						}
+					}
+					
+					if (!$matched)
+					{
+						if (isset($result->collectionCode) && ($result->collectionCode == 'ENSIF') && is_numeric($result->catalogNumber))
+						{
+							$matched = true;
+							$parameters = array();
+							$parameters['institutionCode'] = $result->institutionCode;
+							$parameters['collectionCode'] = 'EO';
+							$parameters['catalogNumber'] = $result->collectionCode . $result->catalogNumber;
+							$result->parameters[] = $parameters;
+						}
+					}
 					
 					
+					if (!$matched)
+					{
 						if (preg_match('/^[0-9]{4}$/', $result->catalogNumber))
 						{
 						
@@ -1613,8 +1629,11 @@ function parse($verbatim_code, $extend = 10)
 							$parameters['catalogNumber'] = '0.' . $result->catalogNumber;
 							$result->parameters[] = $parameters;
 						}		
+					}
 						
 																	
+					if (!$matched)
+					{
 						if (preg_match('/^(?<one>[0-9]{4})[-|\.|_](?<two>\d+)/', $result->catalogNumber, $m))
 						{
 						
@@ -1652,8 +1671,11 @@ function parse($verbatim_code, $extend = 10)
 							$parameters['institutionCode'] = $result->institutionCode;
 							$parameters['catalogNumber'] = $m['one'] . '.' . $m['two'];
 							$result->parameters[] = $parameters;
-
 						}
+					}
+						
+					if (!$matched)
+					{					
 						if (preg_match('/([A-Z]+)\s+(\d+)$/', $result->catalogNumber))
 						{						
 							$matched = true;
@@ -1662,7 +1684,6 @@ function parse($verbatim_code, $extend = 10)
 							$parameters['catalogNumber'] = preg_replace('/\s+/', '', $result->catalogNumber);
 							$result->parameters[] = $parameters;
 						}													
-																			
 					}
 					// default
 					if ($matched)

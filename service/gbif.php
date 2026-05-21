@@ -33,7 +33,7 @@ function search ($specimen, $scientificName = '')
 				$url .= $k . '=' . urlencode($v) . '&';
 			}
 			
-			// echo $url . "\n";			
+			//echo $url . "\n";			
 			
 			$json = get($url);
 			
