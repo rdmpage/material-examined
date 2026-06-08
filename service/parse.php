@@ -348,7 +348,8 @@ $patterns = array(
 	'/^(?<institutionCode>WAM)\s+(?<catalogNumber>\d+(\-\d+)?)$/',	
 	
 	// WAM T111382
-	'/^(?<institutionCode>WAM)(\s*|:)[A-Z](?<catalogNumber>\d+)$/',	
+	// WAM-T113492
+	'/^(?<institutionCode>WAM)(\s*|:|-)[A-Z](?<catalogNumber>\d+)$/',	
 	
 	// WAM P.30850-030
 	'/^(?<institutionCode>WAM)\s+(?<catalogNumber>[A-Z]\.?\d+(-\d+)?)$/',
@@ -2673,7 +2674,7 @@ function parse($verbatim_code, $extend = 10)
 					$matched = false;
 					if (!$matched)
 					{
-						if (preg_match('/^(?<prefix>[A-Z])\.?(?<main>\d+)[\.|-]?(?<suffix>\d+)$/', $result->catalogNumber, $m))
+						if (preg_match('/^(?<prefix>[A-Z])\.?(?<main>\d+)([\.|-](?<suffix>\d+))$/', $result->catalogNumber, $m))
 						{
 							$matched = true;
 							$parameters = array();
@@ -2683,7 +2684,7 @@ function parse($verbatim_code, $extend = 10)
 						}
 						
 						// No prefixes
-						if (preg_match('/^(?<main>\d+)[\.|-]?(?<suffix>\d+)$/', $result->catalogNumber, $m))
+						if (preg_match('/^(?<main>\d+)([\.|-](?<suffix>\d+))$/', $result->catalogNumber, $m))
 						{
 							$prefixes = array('A', 'M', 'P', 'R', 'S', 'T');
 							foreach ($prefixes as $prefix)
