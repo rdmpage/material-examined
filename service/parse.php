@@ -184,6 +184,9 @@ $patterns = array(
 	'/^(?<institutionCode>MCZ)(?<catalogNumber>[A|R][\.|\-]\d+)$/',
 	
 	
+	// MCZ-IZ131433
+	'/^(?<institutionCode>MCZ)-(?<collectionCode>[A-Z]+)(?<catalogNumber>\d+)$/',
+	
 	//MCZ-R49129
 	'/^(?<institutionCode>MCZ)-(?<catalogNumber>[A|R]\d+)$/',
 
@@ -1533,6 +1536,19 @@ function parse($verbatim_code, $extend = 10)
 							$result->parameters[] = $parameters;
 						}					
 					}
+					
+					if (!$matched)
+					{
+						if (isset($result->collectionCode))
+						{
+							$parameters = array();
+							$parameters['institutionCode'] = $result->institutionCode;
+							$parameters['collectionCode'] = $result->collectionCode;
+							$parameters['catalogNumber'] = $result->catalogNumber;
+							$result->parameters[] = $parameters;
+						}
+					}
+									
 					
 					$use_default = true;
 					break;
